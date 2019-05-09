@@ -112,7 +112,7 @@
                 this.$message.success("登录成功");
                 this.$store.dispatch('getUserInfo');
 	              setTimeout(()=>{
-                  this.$router.push('/platform/overview')
+                  this.$router.push('/invoice/enterprise-list');
 	              },1000)
 
               }else{
