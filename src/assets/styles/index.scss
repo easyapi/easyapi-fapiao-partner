@@ -1,0 +1,233 @@
+@import "./colors";
+//font color
+.fz-cl-main {
+  color: $main-color;
+}
+
+.fz-cl-light {
+  color: $cl-gray-light;
+}
+
+.fz-cl-white {
+  color: $cl-white;
+}
+
+
+//element-ui
+.el-input__prefix {
+  line-height: 40px;
+}
+
+.el-popover {
+  padding: 0;
+  border: none;
+  min-width: 90px;
+}
+
+.table-header--gray>th{
+  background-color: $cl-gray!important;
+}
+.main-breadcrumb .el-breadcrumb__inner{
+  font-size: 16px;
+}
+
+//布局
+.layout {
+  height: 100%;
+}
+
+.header {
+  background-color: $main-color;
+  color: $cl-white;
+  height: 50px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  .header_logo {
+    width: 220px;
+    border-right: 1px solid rgba($cl-white, 0.3);
+    padding: 0 20px;
+    align-items: center;
+
+    img {
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+      margin-right: 10px;
+    }
+
+    span {
+      letter-spacing: 1.4px;
+    }
+  }
+
+  .header_navbar {
+    width: calc(100% - 440px);
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 14px;
+
+    a {
+      color: $cl-white;
+      padding: 0 30px;
+      height: 50px;
+      line-height: 50px;
+    }
+
+    a.active, a:hover {
+
+    }
+  }
+
+  .header_account {
+    justify-content: flex-end;
+    align-items: center;
+    width: 220px;
+    padding: 0 20px;
+
+    a {
+      color: $cl-white;
+    }
+
+    img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+    }
+
+  }
+}
+
+.aside {
+  background-color: $cl-white;
+  width: 220px;
+  position: fixed;
+  top: 50px;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+
+  .navbar {
+    h2 {
+      font-size: 18px;
+      line-height: 50px;
+      padding: 0 35px;
+    }
+
+    a {
+      color: $cl-gray-dark;
+      font-size: 14px;
+      line-height: 50px;
+      padding-left: 32px;
+      border-left: 2px solid transparent;
+
+      span {
+        margin-right: 10px;
+      }
+    }
+
+    a.active {
+      border-left-color: $main-color;
+      color: $main-color;
+      background-color: transparentize($main-color, 0.93);
+    }
+
+    a:hover {
+      border-left-color: $main-color;
+      color: $main-color;
+      background-color: transparentize($main-color, 0.93);;
+    }
+  }
+}
+
+.main {
+  position: fixed;
+  top: 50px;
+  left: 220px;
+  bottom: 0;
+  right: 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.main-container {
+  height: 100%;
+  overflow-y: auto;
+  background-color: $cl-white;
+  border-radius: 5px;
+}
+
+.main-breadcrumb {
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  height: 64px;
+  box-sizing: border-box;
+  background-color: $cl-white;
+  border-bottom: 1px solid $cl-gray-light-again;
+  font-size: 16px;
+}
+
+.main-content {
+  padding: 20px 20px 0 20px;
+}
+
+.search-content .el-form-item{
+  margin-right: 20px!important;
+  margin-bottom: 20px;
+
+}
+
+.pagination{
+  padding: 24px 0;
+}
+//登录注册
+.login, .register {
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+
+  .login_box, .register_box {
+    width: 820px;
+    height: 512px;
+    background-color: #ffffff;
+    box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.05);
+
+    .login_box_rt, .login_box_lf, .register_box_rt, .register_box_lf {
+      width: 410px;
+      height: 512px;
+    }
+
+    .login_box_lf, .register_box_lf {
+      background: url("../images/login_bg.png") no-repeat center;
+      background-size: 100% 100%;
+      padding: 0 50px;
+      justify-content: center;
+
+      .welcome {
+        margin-top: -50px;
+
+        & > span {
+          margin-bottom: 18px;
+        }
+      }
+    }
+
+    .login_box_rt, .register_box_rt {
+      padding: 80px 60px 0 60px;
+
+      .remember {
+        justify-content: space-between;
+        margin-bottom: 15px;
+      }
+
+      .login--btn, .register--btn {
+        width: 100%;
+      }
+
+    }
+
+  }
+}

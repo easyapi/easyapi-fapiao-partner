@@ -1,0 +1,44 @@
+@charset "utf-8";
+@import "./common.css";
+/*自定义全局class类*/
+/*font-size*/
+.fz-10 {
+  font-size: 10px;
+}
+
+.fz-12 {
+  font-size: 12px;
+}
+
+.fz-14 {
+  font-size: 14px;
+}
+
+.fz-16 {
+  font-size: 16px;
+}
+
+.fz-18 {
+  font-size: 18px;
+}
+
+.fz-20 {
+  font-size: 20px;
+}
+
+.fz-22 {
+  font-size: 22px;
+}
+
+.fz-24 {
+  font-size: 24px;
+}
+
+.fz-26 {
+  font-size: 24px;
+}
+.fz-36 {
+  font-size: 24px;
+}
+
+

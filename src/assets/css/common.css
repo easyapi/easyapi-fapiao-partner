@@ -1,0 +1,133 @@
+@charset "utf-8";
+@import "./media.css";
+
+/*通用class类*/
+.fz-w{
+  font-weight: bold;
+}
+/* 图片自适应 */
+img.img-auto {
+  width: 100%;
+  height: auto;
+  width: auto \9; /* ie8 */
+  -ms-interpolation-mode: bicubic; /*为了照顾ie图片缩放失真*/
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+/*  清除浮动方法一*/
+/*.clear{*/
+/*  clear: both;*/
+/*}*/
+/*  清除浮动方法二*/
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  /*font-size: 0;*/
+  content: " ";
+  clear: both;
+  /*height: 0;*/
+}
+
+.clearfix {
+  zoom: 1;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+/*弹性布局*/
+.flex-r {
+  display: -webkit-box; /* Chrome 4+, Safari 3.1, iOS Safari 3.2+ */
+  display: -moz-box; /* Firefox 17- */
+  display: -webkit-flex; /* Chrome 21+, Safari 6.1+, iOS Safari 7+, Opera 15/16 */
+  display: -moz-flex; /* Firefox 18+ */
+  display: -ms-flexbox; /* IE 10 */
+  display: flex; /* Chrome 29+, Firefox 22+, IE 11+, Opera 12.1/17/18, Android 4.4+ */
+
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  -o-flex-direction: row;
+  flex-direction: row;
+  /*是否换行*/
+  /*flex-wrap:wrap;*/
+}
+
+.flex-c {
+  display: -webkit-box; /* Chrome 4+, Safari 3.1, iOS Safari 3.2+ */
+  display: -moz-box; /* Firefox 17- */
+  display: -webkit-flex; /* Chrome 21+, Safari 6.1+, iOS Safari 7+, Opera 15/16 */
+  display: -moz-flex; /* Firefox 18+ */
+  display: -ms-flexbox; /* IE 10 */
+  display: flex; /* Chrome 29+, Firefox 22+, IE 11+, Opera 12.1/17/18, Android 4.4+ */
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  -o-flex-direction: column;
+  flex-direction: column;
+
+}
+
+.text-cut {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap
+}
+
+.two-text-cut {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.text-align-right {
+  text-align: right;
+}
+
+.text-align-left {
+  text-align: left;
+}
+
+.box-sizing {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+/*溢出滚动-兼容ios*/
+/*y*/
+.overflow-y-scroll {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+/*x*/
+.overflow-x-scroll {
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+/*溢出隐藏*/
+/*x*/
+.overflow-y-hidden {
+  overflow-y: hidden;
+}
+
+/*y*/
+.overflow-x-hidden {
+  overflow-x: hidden;
+}

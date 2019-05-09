@@ -1,0 +1,86 @@
+@charset "utf-8";
+@import "./reset.css";
+
+/*--------------------*/
+/*
+* max-device-width 与 max-width 区别
+* max-device-width 指的是设备整个渲染（显示）区域的宽度，比如真实的设备屏幕宽度  【例如：手机横竖】大小改变 不执行css
+* max-width 指的是目标显示区域的宽度，比如浏览器的显示区域宽度 根据目标显示区域的宽度 【例如：缩放】大小改变 执行css
+*/
+/*手机适配*/
+/*iPhone5/SE*/
+@media only screen and (max-width:320px ){
+  html {
+    font-size: 12px;
+    /*-webkit-transform: scale( 0.8)*/
+  }
+}
+/*@media only screen and (max-height:480px ){}*/
+/*@media only screen and (max-width:320px ) and (max-height:480px ){}*/
+
+/*iPhone6,7,8*/
+@media only screen and (max-width:375px ){
+  html {
+    font-size: 12px;
+  }
+}
+/*@media only screen and (max-height:667px ){}*/
+
+/*iPhone6,7,8Plus*/
+@media only screen and (max-width:414px ){
+  html {
+    font-size: 12px;
+  }
+}
+
+/*iphoneX*/
+@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3){
+  html {
+    font-size: 12px;
+  }
+}
+
+/*pc适配*/
+/*超小屏*/
+@media (max-width: 767px) {
+  html {
+    font-size: 14px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+  /* 取消链接高亮  */
+  /*body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {*/
+    /*-webkit-tap-highlight-color: rgba(0, 0, 0, 0);*/
+  /*}*/
+
+  /*textarea {*/
+    /*resize: none;*/
+  /*}*/
+  /*移动端点击a链接出现蓝色背景问题解决 */
+  /*a:link, a:active, a:visited, a:hover {*/
+    /*background: none;*/
+    /*-webkit-tap-highlight-color: rgba(0, 0, 0, 0);*/
+  /*}*/
+  /*input[type=search]::-webkit-search-cancel-button,*/
+  /*input[type=search]::-webkit-search-decoration {*/
+    /*-webkit-appearance: none;*/
+  /*}*/
+
+  /* 禁止缩放表单 */
+  input[type="submit"], input[type="reset"], input[type="button"], input {
+    resize: none;
+    border: none;
+  }
+}
+
+/*平板  */
+@media (min-width: 768px) and (max-width: 991px) {  }
+
+/*桌面显示器 */
+@media (min-width: 992px) and (max-width: 1199px) {  }
+
+/*大桌面显示器 */
+@media (min-width: 1200px) {
+  html {
+    font-size: 16px
+  }
+}
