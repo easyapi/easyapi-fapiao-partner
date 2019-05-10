@@ -1,4 +1,5 @@
-import {findElem} from '../../utils/fn'
+import {findElem} from '../../utils/fn';
+import Cookies from 'js-cookie';
 //基本一级页面配置 顶部导航及左侧可显示菜单
 //name，url不要重复
 /*
@@ -7,50 +8,124 @@ import {findElem} from '../../utils/fn'
 * icon 图标class
 * url  路径
 * */
-
-let list = [
-  {
-    title: "发票管理",
-    url: '/invoice',
-    name: 'Invoice',
-    sons: [
+let list=[];
+let cookiesUserInfo = Cookies.get("userInfo");
+if(cookiesUserInfo){
+  let userInfo2Json = JSON.parse(cookiesUserInfo);
+  let ifCanCreate = userInfo2Json.content.platform.ifCanCreate;
+  if(ifCanCreate === true){
+    list = [
       {
-        title: '企业管理',
+        title: "服务商平台",
+        url: '/invoice',
+        name: 'Invoice',
         sons: [
           {
-            title: "企业管理",
-            url: '/invoice/enterprise-list',
-            name: 'EnterpriseList',
-            icon:"",
+            title: '企业管理',
+            sons: [
+              {
+                title: "企业管理",
+                url: '/invoice/enterprise-list',
+                name: 'EnterpriseList',
+                icon:"",
+              },
+              {
+                title: "预警企业",
+                url: '/invoice/warning',
+                name: 'Warning',
+                icon:"icon-agent",
+              },
+              {
+                title: "沉默企业",
+                url: '/invoice/silent',
+                name: 'Silent',
+                icon:"icon-agent",
+              }
+            ]
           },
-          {
-            title: "预警企业",
-            url: '/invoice/warning',
-            name: 'Warning',
-            icon:"",
-          },
-          {
-            title: "沉默企业",
-            url: '/invoice/silent',
-            name: 'Silent',
-            icon:"",
-          }
-        ]
-      },
-      {
-        title: "服务商管理",
-        sons: [
           {
             title: "服务商管理",
-            url: '/invoice/provider-list',
-            name: 'ProviderList',
-            icon:"",
+            sons: [
+              {
+                title: "服务商管理",
+                url: '/invoice/provider-list',
+                name: 'ProviderList',
+                icon:"",
+              }
+            ]
           }
         ]
       }
-    ]
-  }
-];
+    ];
+  }else if(ifCanCreate === false){
+  list = [
+    {
+      title: "发票管理",
+      url: '/invoice',
+      name: 'Invoice',
+      sons: [
+        {
+          title: '企业管理',
+          sons: [
+            {
+              title: "企业管理",
+              url: '/invoice/enterprise-list',
+              name: 'EnterpriseList',
+              icon:"",
+            },
+            {
+              title: "预警企业",
+              url: '/invoice/warning',
+              name: 'Warning',
+              icon:"icon-agent",
+            },
+            {
+              title: "沉默企业",
+              url: '/invoice/silent',
+              name: 'Silent',
+              icon:"icon-agent",
+            }
+          ]
+        }
+      ]
+    }
+  ];
+}
+}else{
+  list = [
+    {
+      title: "发票管理",
+      url: '/invoice',
+      name: 'Invoice',
+      sons: [
+        {
+          title: '企业管理',
+          sons: [
+            {
+              title: "企业管理",
+              url: '/invoice/enterprise-list',
+              name: 'EnterpriseList',
+              icon:"",
+            },
+            {
+              title: "预警企业",
+              url: '/invoice/warning',
+              name: 'Warning',
+              icon:"icon-agent",
+            },
+            {
+              title: "沉默企业",
+              url: '/invoice/silent',
+              name: 'Silent',
+              icon:"icon-agent",
+            }
+          ]
+        }
+      ]
+    }
+  ];
+}
+
 //扩展页面配置【配置跳转页面选中相应name】
 let extend = [
   //平台

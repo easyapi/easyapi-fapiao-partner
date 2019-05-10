@@ -51,7 +51,7 @@
           :title="titleTips"
           :visible.sync="centerDialogVisible"
           width="30%"
-          center
+          center :close-on-click-modal="false"
         >
           <el-form
             :model="formInline"
@@ -113,6 +113,7 @@ import {
   jumpShopUrl,
   sendShopUrl
 } from "../../../api/api";
+import Cookies from 'js-cookie';
 export default {
   name: "",
   components: {},
@@ -177,6 +178,7 @@ export default {
   watch: {},
   created() {},
   mounted() {
+    document.title="企业管理 - EasyAPI服务商"
     this.getShopsList();
   },
   //keep-alive 组件激活时调用
@@ -187,6 +189,8 @@ export default {
   methods: {
     // 获取列表
     getShopsList() {
+      let CookiesUserInfo = Cookies.get('userInfo')
+      console.log(CookiesUserInfo);
       this.loading = true;
       this.$ajax({
         method: "get",
@@ -263,7 +267,8 @@ export default {
         .then(res => {
           console.log(res);
           if (res.data.code == "1") {
-            this.$router.push(res.data.content);
+            // this.$router.push(res.data.content);
+            window.location.href=res.data.content;
           }
         })
         .catch(error => {
@@ -307,7 +312,7 @@ export default {
                 }
               })
               .catch(error => {
-                this.$message.error("设置失败！");
+                this.$message.error(error.response.data.message);
                 console.log(error.response);
               });
           } else {

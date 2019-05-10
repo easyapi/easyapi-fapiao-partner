@@ -3,7 +3,7 @@
 		<div class="header_logo flex-r">
 			<img src="../assets/images/logo.png" alt="">
 			<span class="fz-14">
-				EasyAPI服务商平台
+				EasyAPI发票管理
 			</span>
 		</div>
 		<div class="header_navbar flex-r">
@@ -27,7 +27,7 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
-
+  import Cookies from 'js-cookie'
   export default {
     name: "Header",
     components: {},
@@ -72,9 +72,11 @@
         }
       },
       logOut() {
+        Cookies.remove('userInfo');
         this.$router.push('/login')
         this.$store.dispatch('logOut');
-        this.showPopover = false
+        this.showPopover = false;
+        
       }
     }
   }

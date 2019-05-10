@@ -22,9 +22,9 @@
           style="width: 100%"
           @selection-change="handleSelectionChange">
           <el-table-column prop="shopSummaryId" label="序号" align="center"></el-table-column>
-          <el-table-column prop="price" label="企业名称" align="center"></el-table-column>
-          <el-table-column prop="identifyNumber" label="纳税人识别号" align="center"></el-table-column>
-          <el-table-column prop="provider" label="税务服务商" align="center"></el-table-column>
+          <el-table-column prop="shop.name" label="企业名称" align="center"></el-table-column>
+          <el-table-column prop="shop.identifyNumber" label="纳税人识别号" align="center"></el-table-column>
+          <el-table-column prop="shop.provider" label="税务服务商" align="center"></el-table-column>
           <el-table-column prop="addTime" label="注册时间" width="180" align="center"></el-table-column>
           <el-table-column prop="lastTime" label="最近开票日期" width="180" align="center"></el-table-column>
           <el-table-column prop="amount" label="历史开票量" align="center"></el-table-column>
@@ -46,7 +46,7 @@
   </div>
 </template>
 <script>
-import { APPKEY, APPSECRET, sxproductUrl, shopBaseUrl,getShopSummaiesUrl } from "../../../api/api";
+import { APPKEY, APPSECRET, sxproductUrl,getShopSummaiesUrl } from "../../../api/api";
 export default {
   name: "",
   components: {},
@@ -114,6 +114,7 @@ export default {
   watch: {},
   created() {},
   mounted() {
+    document.title="沉默企业 - EasyAPI服务商";
     this.getShopSummaiesList();
   },
   //keep-alive 组件激活时调用
@@ -142,77 +143,6 @@ export default {
             this.total = res.data.totalElements;
           }
           this.loading=false;
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
-    selectTime() {
-      console.log(this.formInline.addTime.join(","));
-    },
-    // 批量下架商品
-    undercarriage() {
-      this.$ajax({
-        method: "put",
-        url:
-          shopBaseUrl +
-          "/biz/product/" +
-          this.multipleSelection +
-          "/undercarriage",
-        data: {
-          appKey: APPKEY,
-          appSecret: APPSECRET
-        }
-      })
-        .then(res => {
-          this.getProductList();
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
-    // 批量上架商品
-    putaway() {
-      this.$ajax({
-        method: "put",
-        url:
-          shopBaseUrl + "/biz/product/" + this.multipleSelection + "/putaway",
-        data: {
-          appKey: APPKEY,
-          appSecret: APPSECRET
-        }
-      })
-        .then(res => {
-          this.getProductList();
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
-    // 批量删除商品
-    delUndercarriage() {
-      this.$confirm("确认删除吗?")
-        .then(res => {
-          this.$ajax({
-            method: "delete",
-            url: shopBaseUrl + "/biz/product/" + this.multipleSelection,
-            params: {
-              appKey: APPKEY,
-              appSecret: APPSECRET
-            }
-          })
-            .then(res => {
-              this.getProductList();
-              this.$message.success("删除成功！");
-            })
-            .catch(error => {
-              console.log(error);
-              if (error.response === 400) {
-                this.$message.warning("删除失败！");
-              } else {
-                this.$message.warning("请选择要删除的商品！");
-              }
-            });
         })
         .catch(error => {
           console.log(error);

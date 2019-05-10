@@ -28,6 +28,7 @@ const user = {
       }).then(res => {
         console.log(res)
         let userInfoData = res.data;
+        Cookies.set('userInfo', userInfoData);
         commit('SET_USERNAME', userInfoData.username)
         commit('SET_USERINFO', userInfoData)
       }).catch(error => {
@@ -37,7 +38,9 @@ const user = {
     // 退出登录
     logOut({commit, state}) {
       // removeToken('authenticationToken');
-      localStorage.removeItem("token")
+      Cookies.remove('userInfo');
+      localStorage.removeItem("token");
+      
     },
   }
 }

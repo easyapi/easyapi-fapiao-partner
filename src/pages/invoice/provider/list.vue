@@ -4,17 +4,18 @@
       <el-breadcrumb separator-class="el-icon-arrow-right">
         <el-breadcrumb-item>服务商管理</el-breadcrumb-item>
       </el-breadcrumb>
-      <el-button
-        size="small"
-        type="primary"
-        @click="showDiglog(0,'','')"
-      >添加</el-button>
+      <el-button size="small" type="primary" @click="showDiglog(0,'','')">添加</el-button>
     </div>
     <div class="main-content">
       <div class="search-content">
         <el-form :inline="true" :model="formInline" class="search__from" label-width="70px">
           <el-form-item label="关键字">
-            <el-input size="small" v-model="formInline.keyword" placeholder="可输入企业名称、税号等关键字" style="width:360px;"></el-input>
+            <el-input
+              size="small"
+              v-model="formInline.keyword"
+              placeholder="可输入企业名称、税号等关键字"
+              style="width:360px;"
+            ></el-input>
           </el-form-item>
           <el-form-item>
             <el-button size="small" type="primary" @click="getProductList(formInline)">搜索</el-button>
@@ -23,60 +24,47 @@
       </div>
       <div class>
         <el-table
-          border v-loading="loading"
+          border
+          v-loading="loading"
           element-loading-text="老铁别急，这就给你整上..."
           header-row-class-name="table-header--gray"
           size="small"
           :data="tableData"
           style="width: 100%"
-          @selection-change="handleSelectionChange">
+          @selection-change="handleSelectionChange"
+        >
           <el-table-column prop="platformId" label="序号" align="center"></el-table-column>
           <el-table-column prop="addTime" label="添加时间" align="center"></el-table-column>
           <el-table-column prop="name" label="服务商名称" align="center"></el-table-column>
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
               <el-button size="mini" @click="showDiglog(1,scope.$index,scope.row)">设置管理员</el-button>
-              <el-button size="mini" @click="editPlatform('',scope.$index, scope.row)">{{btnText}}</el-button>
+              <el-button size="mini" @click="editPlatform('',scope.$index, scope.row)">{{scope.row.state == 0?"停用":"启用"}}</el-button>
             </template>
           </el-table-column>
         </el-table>
-        <el-dialog
-          :modal-append-to-body="false"
-          :title="titleTips"
-          :visible.sync="centerDialogVisible"
-          width="30%"
-          center
-        >
-          <el-form
-            :model="formInline"
-            :rules="rules"
-            ref="formInline"
-            label-width="130px"
-            class="demo-ruleForm"
-          >
-          <div v-if="show1">
-            <el-form-item label="企业名称：" prop="name">
-              <el-input v-model="formInline.name"></el-input>
-            </el-form-item>
-            <el-form-item label="纳税人识别号：" prop="identifyNumber">
-              <el-input v-model="formInline.identifyNumber"></el-input>
-            </el-form-item>
-          </div>
-            
+        <el-dialog :modal-append-to-body="false" :title="titleTips" :visible.sync="centerDialogVisible" width="30%" center :close-on-click-modal="false">
+          <el-form :model="formInline" :rules="rules" ref="formInline" label-width="130px" class="demo-ruleForm">
+            <div v-if="show1">
+              <el-form-item label="服务商名称：" prop="name">
+                <el-input v-model="formInline.name"></el-input>
+              </el-form-item>
+            </div>
+
             <div v-if="show2">
               <el-form-item type="number" label="管理员账号：" prop="username">
-              <el-input v-model="formInline.username"></el-input>
-            </el-form-item>
-            <el-form-item type="number" label="验证码：" prop="code">
-              <el-input v-model="formInline.code" style="width:50%;"></el-input>
-              <el-button @click="sendCaptcha" :disabled="btnDisabled">{{captchaTip}}</el-button>
-            </el-form-item>
-            <el-form-item type="text" label="用户昵称：" prop="nickname">
-              <el-input v-model="formInline.nickname"></el-input>
-            </el-form-item>
-            <el-form-item type="password" label="初始密码：" prop="password">
-              <el-input v-model="formInline.password"></el-input>
-            </el-form-item>
+                <el-input v-model="formInline.username"></el-input>
+              </el-form-item>
+              <el-form-item type="number" label="验证码：" prop="code">
+                <el-input v-model="formInline.code" style="width:50%;"></el-input>
+                <el-button @click="sendCaptcha" :disabled="btnDisabled">{{captchaTip}}</el-button>
+              </el-form-item>
+              <el-form-item type="text" label="用户昵称：" prop="nickname">
+                <el-input v-model="formInline.nickname"></el-input>
+              </el-form-item>
+              <el-form-item type="password" label="初始密码：" prop="password">
+                <el-input v-model="formInline.password"></el-input>
+              </el-form-item>
             </div>
           </el-form>
           <span slot="footer" class="dialog-footer">
@@ -100,7 +88,12 @@
   </div>
 </template>
 <script>
-import { getCaptchaUrl, shopBaseUrl,getPlatformsUrl,addPlatformManagerUrl,editPlatformUrl } from "../../../api/api";
+import {
+  getCaptchaUrl,
+  getPlatformsUrl,
+  addPlatformManagerUrl,
+  editPlatformUrl
+} from "../../../api/api";
 export default {
   name: "",
   components: {},
@@ -109,7 +102,7 @@ export default {
     return {
       formInline: {
         platformId: "",
-        identifyNumber:'',
+        identifyNumber: "",
         name: "",
         username: "",
         code: "",
@@ -117,10 +110,9 @@ export default {
         password: ""
       },
       addTime: "",
-      btnText:"",
-      state:"",
-      show1:false,
-      show2:false,
+      state: "",
+      show1: false,
+      show2: false,
       tableData: [],
       centerDialogVisible: false,
       btnType: "",
@@ -137,15 +129,11 @@ export default {
           { required: true, message: "请输入企业名称", trigger: "blur" },
           { min: 3, max: 15, message: "长度在 3 到 15 个字符", trigger: "blur" }
         ],
-        identifyNumber:[
-          { required: true, message: "请输入纳税人识别号", trigger: "blur" },
-          { min: 3, max: 15, message: "长度在 3 到 15 个字符", trigger: "blur" }
-        ],
-        username:[
+        username: [
           { required: true, message: "请输入管理员账号", trigger: "blur" },
           { min: 11, max: 11, message: "长度 11 个字符", trigger: "blur" }
         ],
-        code:[
+        code: [
           { required: true, message: "请输入验证码", trigger: "blur" },
           { min: 6, max: 6, message: "长度在 6 个字符", trigger: "blur" }
         ],
@@ -153,7 +141,7 @@ export default {
           { required: true, message: "请输入用户昵称", trigger: "blur" },
           { min: 1, max: 11, message: "长度在 11 个字符", trigger: "blur" }
         ],
-        password:[
+        password: [
           { required: true, message: "请输入初始密码", trigger: "blur" },
           { min: 6, max: 18, message: "长度在 6 到 18 个字符", trigger: "blur" }
         ]
@@ -165,6 +153,7 @@ export default {
   watch: {},
   created() {},
   mounted() {
+    document.title="服务商管理 - EasyAPI服务商";
     this.getPlatformsList();
   },
   //keep-alive 组件激活时调用
@@ -175,13 +164,13 @@ export default {
   methods: {
     // 获取列表
     getPlatformsList() {
-      this.loading=true;
+      this.loading = true;
       this.$ajax({
         method: "get",
         url: getPlatformsUrl,
         params: {
-          page : this.current - 1,
-          size : this.pageSize,
+          page: this.current - 1,
+          size: this.pageSize,
           keyword: this.formInline.keyword
         }
       })
@@ -190,14 +179,12 @@ export default {
             this.tableData = [];
           } else {
             this.tableData = res.data.content;
-            if(res.data.content.state==1){
-              this.btnText = "启用";
-            }else{
-              this.btnText = "停用";
-            }
+            
+            
             this.total = res.data.totalElements;
+            
           }
-          this.loading=false;
+          this.loading = false;
         })
         .catch(error => {
           console.log(error);
@@ -211,7 +198,7 @@ export default {
       console.log(row.platformId);
       if (type == 0) {
         this.show1 = true;
-        this.titleTips = "添加企业";
+        this.titleTips = "添加服务商";
         this.show2 = false;
       } else {
         this.show2 = true;
@@ -241,19 +228,18 @@ export default {
     handleSizeChange(val) {
       this.loading = true;
       this.pageSize = val;
-      this.getProductList(this.formInline);
+      this.getPlatformsList();
       console.log(`每页 ${val} 条`);
     },
     handleCurrentChange(val) {
       this.current = val;
-      
-      this.getProductList(this.formInline);
+      this.getPlatformsList();
       console.log(`当前页: ${val}`);
     },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          console.log(this.btnType)
+          console.log(this.btnType);
           if (this.btnType == 1) {
             this.$ajax({
               method: "post",
@@ -281,9 +267,8 @@ export default {
           } else {
             this.$ajax({
               method: "post",
-              url: sendShopUrl,
+              url: editPlatformUrl,
               data: {
-                identifyNumber: this.formInline.identifyNumber,
                 name: this.formInline.name
               }
             })
@@ -291,7 +276,7 @@ export default {
                 if (res.status === 200) {
                   this.centerDialogVisible = false;
                   this.$message.success("添加成功！");
-                  this.getShopsList();
+                  this.getPlatformsList();
                 } else if (res.data.code === 0) {
                   this.$message.error("添加失败！");
                 }
@@ -313,35 +298,25 @@ export default {
       this.$refs[formName].resetFields();
     },
     editPlatform(type, index, row) {
-      if(this.btnText == "启用"){
-        this.state = 1;
-      }else{
+      if(row.state == 1){
         this.state = 0;
+      }else if(row.state == 0){
+        this.state = 1;
       }
       this.$ajax({
         method: "post",
-        url: editPlatformUrl+row.platformId,
+        url: editPlatformUrl + row.platformId,
         data: {
-          state:this.state,
+          state: this.state
         }
       })
         .then(res => {
           if (res.status === 200) {
-            if(this.state == 0){
-              this.btnText = "启用";
-            }else{
-              this.btnText = "停用";
-            }
-          } 
+            this.getPlatformsList();
+          }
         })
         .catch(error => {
           console.log(error.response);
-          if(this.state == 0){
-              this.btnText = "启用";
-            }else{
-              this.btnText = "停用";
-            }
-          
         });
     },
     handleEdit(index, row) {
@@ -380,5 +355,4 @@ export default {
   margin-bottom: -2px;
   color: #4170ff;
 }
-
 </style>

@@ -83,7 +83,7 @@
 
     },
     mounted() {
-
+      document.title="登录 - EasyAPI服务商";
     },
     //keep-alive 组件激活时调用
     activated() {

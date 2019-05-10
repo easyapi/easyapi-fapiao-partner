@@ -5,7 +5,8 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
-  base: process.env.BASE_URL,
+  // base: process.env.BASE_URL,
+  base: '/partner/',
   routes: [
     {
       path: '/',
@@ -20,14 +21,6 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: () => import(/* webpackChunkName: "register" */ '../pages/register.vue')
-    },
-    {
-      path: '/platform',
-      name: 'Platform',
-      component: () => import(/* webpackChunkName: "platform" */ '../pages/layout/layout.vue'),
-      redirect: '/platform/overview',
-      children: []
-
     },
     {
       path: '/invoice',
