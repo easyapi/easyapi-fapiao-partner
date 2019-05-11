@@ -38,7 +38,8 @@ const user = {
     // 退出登录
     logOut({commit, state}) {
       // removeToken('authenticationToken');
-      Cookies.remove('userInfo');
+      // Cookies.remove('userInfo');
+      localStorage.removeItem('userInfo');
       localStorage.removeItem("token");
       
     },

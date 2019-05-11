@@ -93,7 +93,7 @@ import {
   getPlatformsUrl,
   addPlatformManagerUrl,
   editPlatformUrl
-} from "../../../api/api";
+} from "../../api/api";
 export default {
   name: "",
   components: {},

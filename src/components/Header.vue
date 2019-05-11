@@ -72,7 +72,8 @@
         }
       },
       logOut() {
-        Cookies.remove('userInfo');
+        // Cookies.remove('userInfo');
+        localStorage.removeItem('userInfo');
         this.$router.push('/login')
         this.$store.dispatch('logOut');
         this.showPopover = false;

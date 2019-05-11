@@ -4,7 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
+  // mode: 'history',
   // base: process.env.BASE_URL,
   base: '/partner/',
   routes: [
@@ -31,23 +31,23 @@ export default new Router({
         {
           path: 'enterprise-list',
           name: 'Enterprise',
-          component: () => import(/* webpackChunkName: "store" */ '../pages/invoice/enterprise/list.vue')
+          component: () => import(/* webpackChunkName: "store" */ '../pages/enterprise/list.vue')
         },
         {
           path: 'silent',
           name: 'Silent',
-          component: () => import(/* webpackChunkName: "store" */ '../pages/invoice/enterprise/silent.vue')
+          component: () => import(/* webpackChunkName: "store" */ '../pages/enterprise/silent.vue')
         },
         {
           path: 'warning',
           name: 'Warning',
-          component: () => import(/* webpackChunkName: "store" */ '../pages/invoice/enterprise/warning.vue')
+          component: () => import(/* webpackChunkName: "store" */ '../pages/enterprise/warning.vue')
         },
         //服务商
         {
           path: 'provider-list',
           name: 'ProviderList',
-          component: () => import(/* webpackChunkName: "store" */ '../pages/invoice/provider/list.vue')
+          component: () => import(/* webpackChunkName: "store" */ '../pages/provider/list.vue')
         }
       ]
     },

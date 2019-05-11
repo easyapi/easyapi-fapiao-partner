@@ -112,7 +112,7 @@ import {
   addShopManagerUrl,
   jumpShopUrl,
   sendShopUrl
-} from "../../../api/api";
+} from "../../api/api";
 import Cookies from 'js-cookie';
 export default {
   name: "",

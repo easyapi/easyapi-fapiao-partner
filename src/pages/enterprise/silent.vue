@@ -46,7 +46,7 @@
   </div>
 </template>
 <script>
-import { APPKEY, APPSECRET, sxproductUrl,getShopSummaiesUrl } from "../../../api/api";
+import { APPKEY, APPSECRET, sxproductUrl,getShopSummaiesUrl } from "../../api/api";
 export default {
   name: "",
   components: {},
