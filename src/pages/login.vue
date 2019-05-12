@@ -77,7 +77,7 @@ export default {
   watch: {},
   created() {},
   mounted() {
-    document.title = "登录 - EasyAPI服务商";
+    document.title = "登录 - 服务中心 - EasyAPI发票管理";
   },
   //keep-alive 组件激活时调用
   activated() {},
@@ -128,7 +128,7 @@ export default {
                   })
                   .catch(error => {
                     console.log(error.response);
-                    
+
                   });
               } else {
                 this.$message.success(

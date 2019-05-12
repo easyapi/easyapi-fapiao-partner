@@ -153,7 +153,7 @@ export default {
   watch: {},
   created() {},
   mounted() {
-    document.title="服务商管理 - EasyAPI服务商";
+    document.title="服务商管理 - 服务中心 - EasyAPI发票管理";
     this.getPlatformsList();
   },
   //keep-alive 组件激活时调用
@@ -179,10 +179,10 @@ export default {
             this.tableData = [];
           } else {
             this.tableData = res.data.content;
-            
-            
+
+
             this.total = res.data.totalElements;
-            
+
           }
           this.loading = false;
         })

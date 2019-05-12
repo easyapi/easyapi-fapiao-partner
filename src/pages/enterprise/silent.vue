@@ -99,7 +99,7 @@ export default {
         ]
       },
       active: 0,
-     
+
       current: 1,
       pageSize: 15,
       multipleSelection: "",
@@ -114,7 +114,7 @@ export default {
   watch: {},
   created() {},
   mounted() {
-    document.title="沉默企业 - EasyAPI服务商";
+    document.title="沉默企业 - 服务中心 - EasyAPI发票管理";
     this.getShopSummaiesList();
   },
   //keep-alive 组件激活时调用
@@ -156,7 +156,7 @@ export default {
     },
     handleCurrentChange(val) {
       this.current = val;
-      
+
       this.getProductList(this.formInline);
       console.log(`当前页: ${val}`);
     },

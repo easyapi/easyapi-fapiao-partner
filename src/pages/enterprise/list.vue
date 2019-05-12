@@ -178,7 +178,7 @@ export default {
   watch: {},
   created() {},
   mounted() {
-    document.title="企业管理 - EasyAPI服务商"
+    document.title="企业管理 - 服务中心 - EasyAPI发票管理"
     this.getShopsList();
   },
   //keep-alive 组件激活时调用

@@ -91,7 +91,7 @@
 
     },
     mounted() {
-      document.title="注册 - EasyAPI服务商";
+      document.title="注册 - 服务中心 - EasyAPI发票管理";
     },
     //keep-alive 组件激活时调用
     activated() {
