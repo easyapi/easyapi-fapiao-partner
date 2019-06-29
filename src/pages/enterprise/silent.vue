@@ -4,11 +4,6 @@
       <el-breadcrumb separator-class="el-icon-arrow-right">
         <el-breadcrumb-item>沉默企业</el-breadcrumb-item>
       </el-breadcrumb>
-      <!-- <el-button
-        size="small"
-        type="primary"
-        @click="()=>{this.$router.push('/store/product-add')}"
-      >添加</el-button> -->
     </div>
     <div class="main-content">
       <div class>
@@ -46,214 +41,218 @@
   </div>
 </template>
 <script>
-import { APPKEY, APPSECRET, sxproductUrl,getShopSummaiesUrl } from "../../api/api";
-export default {
-  name: "",
-  components: {},
-  props: {},
-  data() {
-    return {
-      formInline: {
-        name: "",
-        productCategory: "",
-        minTotalSales: "",
-        maxTotalSales: "",
-        minPrice: "",
-        maxPrice: "",
-        state:'',
-        minQuantity : '',
-        maxQuantity : '',
-        ifWarn :false
-      },
-      addTime: "",
-      tableData: [],
-      pickerOptions2: {
-        shortcuts: [
-          {
-            text: "最近一周",
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit("pick", [start, end]);
-            }
-          },
-          {
-            text: "最近一个月",
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-              picker.$emit("pick", [start, end]);
-            }
-          },
-          {
-            text: "最近三个月",
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-              picker.$emit("pick", [start, end]);
-            }
-          }
-        ]
-      },
-      active: 0,
+  import {sxproductUrl, getShopSummaiesUrl} from "../../api/api";
 
-      current: 1,
-      pageSize: 15,
-      multipleSelection: "",
-      showDown: true,
-      showUp: false,
-      total: 0,
-      loading: true
-    };
-  },
-  //计算属性
-  computed: {},
-  watch: {},
-  created() {},
-  mounted() {
-    document.title="沉默企业 - 服务中心 - EasyAPI发票管理";
-    this.getShopSummaiesList();
-  },
-  //keep-alive 组件激活时调用
-  activated() {},
-  //keep-alive 组件停用时调用。
-  deactivated() {},
-  //方法
-  methods: {
-    // 获取列表
-    getShopSummaiesList() {
-      this.loading=true;
-      this.$ajax({
-        method: "get",
-        url: getShopSummaiesUrl,
-        params: {
-          page : this.current - 1,
-          size : this.pageSize,
-          type : 2
-        }
-      })
-        .then(res => {
-          if (res.data.code === 0) {
-            this.tableData = [];
-          } else {
-            this.tableData = res.data.content;
-            this.total = res.data.totalElements;
+  export default {
+    name: "",
+    components: {},
+    props: {},
+    data() {
+      return {
+        formInline: {
+          name: "",
+          productCategory: "",
+          minTotalSales: "",
+          maxTotalSales: "",
+          minPrice: "",
+          maxPrice: "",
+          state: '',
+          minQuantity: '',
+          maxQuantity: '',
+          ifWarn: false
+        },
+        addTime: "",
+        tableData: [],
+        pickerOptions2: {
+          shortcuts: [
+            {
+              text: "最近一周",
+              onClick(picker) {
+                const end = new Date();
+                const start = new Date();
+                start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                picker.$emit("pick", [start, end]);
+              }
+            },
+            {
+              text: "最近一个月",
+              onClick(picker) {
+                const end = new Date();
+                const start = new Date();
+                start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                picker.$emit("pick", [start, end]);
+              }
+            },
+            {
+              text: "最近三个月",
+              onClick(picker) {
+                const end = new Date();
+                const start = new Date();
+                start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                picker.$emit("pick", [start, end]);
+              }
+            }
+          ]
+        },
+        active: 0,
+
+        current: 1,
+        pageSize: 15,
+        multipleSelection: "",
+        showDown: true,
+        showUp: false,
+        total: 0,
+        loading: true
+      };
+    },
+    //计算属性
+    computed: {},
+    watch: {},
+    created() {
+    },
+    mounted() {
+      document.title = "沉默企业 - 服务中心 - EasyAPI发票管理";
+      this.getShopSummaiesList();
+    },
+    //keep-alive 组件激活时调用
+    activated() {
+    },
+    //keep-alive 组件停用时调用。
+    deactivated() {
+    },
+    //方法
+    methods: {
+      // 获取列表
+      getShopSummaiesList() {
+        this.loading = true;
+        this.$ajax({
+          method: "GET",
+          url: getShopSummaiesUrl,
+          params: {
+            page: this.current - 1,
+            size: this.pageSize,
+            type: 2
           }
-          this.loading=false;
         })
-        .catch(error => {
-          console.log(error);
-        });
-    },
-    handleSizeChange(val) {
-      this.loading = true;
-      this.pageSize = val;
-      this.getProductList(this.formInline);
-      console.log(`每页 ${val} 条`);
-    },
-    handleCurrentChange(val) {
-      this.current = val;
+          .then(res => {
+            if (res.data.code === 0) {
+              this.tableData = [];
+            } else {
+              this.tableData = res.data.content;
+              this.total = res.data.totalElements;
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      },
+      handleSizeChange(val) {
+        this.loading = true;
+        this.pageSize = val;
+        this.getProductList(this.formInline);
+        console.log(`每页 ${val} 条`);
+      },
+      handleCurrentChange(val) {
+        this.current = val;
 
-      this.getProductList(this.formInline);
-      console.log(`当前页: ${val}`);
-    },
-    getAgentList() {
-      let obj = {};
-      obj.page = this.current - 1;
-      obj.size = this.pageSize;
-      obj.nickname = this.nickname;
-      obj.phone = this.phone;
-      obj.startAddTime = this.startTime;
-      obj.endAddTime = this.endTime;
-      obj.area = this.area;
-      obj.areaType = this.areaType;
+        this.getProductList(this.formInline);
+        console.log(`当前页: ${val}`);
+      },
+      getAgentList() {
+        let obj = {};
+        obj.page = this.current - 1;
+        obj.size = this.pageSize;
+        obj.nickname = this.nickname;
+        obj.phone = this.phone;
+        obj.startAddTime = this.startTime;
+        obj.endAddTime = this.endTime;
+        obj.area = this.area;
+        obj.areaType = this.areaType;
 
-      this.$ajax({
-        method: "get",
-        url: agentsUrl,
-        params: obj
-      })
-        .then(res => {
-          if (res.status === 200) {
-            this.tableData = res.data.content;
-            this.total = Number(res.data.totalElements);
-          } else if (res.data.code === 0) {
+        this.$ajax({
+          method: "GET",
+          url: agentsUrl,
+          params: obj
+        })
+          .then(res => {
+            if (res.status === 200) {
+              this.tableData = res.data.content;
+              this.total = Number(res.data.totalElements);
+            } else if (res.data.code === 0) {
+              this.tableData = [];
+              this.total = 0;
+            }
+          })
+          .catch(error => {
+            console.log(error.response);
             this.tableData = [];
             this.total = 0;
+          });
+      },
+      handleEdit(index, row) {
+        console.log(index, row.productId);
+        this.$router.push({
+          path: "/store/product-add",
+          query: {
+            id: row.productId
           }
-        })
-        .catch(error => {
-          console.log(error.response);
-          this.tableData = [];
-          this.total = 0;
         });
-    },
-    handleEdit(index, row) {
-      console.log(index, row.productId);
-      this.$router.push({
-        path: "/store/product-add",
-        query: {
-          id: row.productId
+      },
+      handleSelectionChange(val) {
+        console.log(val);
+        let productId = [];
+        if (val.length != 0) {
+          for (let key in val) {
+            productId.push(val[key].productId);
+            this.multipleSelection = productId.join(",");
+          }
+        } else {
+          this.multipleSelection = "";
         }
-      });
-    },
-    handleSelectionChange(val) {
-      console.log(val);
-      let productId = [];
-      if (val.length != 0) {
-        for (let key in val) {
-          productId.push(val[key].productId);
-          this.multipleSelection = productId.join(",");
-        }
-      } else {
-        this.multipleSelection = "";
-      }
 
-      console.log(this.multipleSelection);
-    },
-    tabChange(index, event) {
-      this.formInline.state = "";
-      this.formInline.minQuantity = "";
-      this.formInline.maxQuantity = "";
-      this.formInline.ifWarn = false;
-      this.active = index;
-      if (index == 1) {
-        this.getProductList(this.formInline);
-        this.showUp = true;
-        this.showDown = false;
-      } else if (index == 2) {
-        this.getProductList(this.formInline);
-        this.showUp = false;
-        this.showDown = true;
-      } else if (index == 3) {
-        this.getProductList(this.formInline);
-        this.showUp = false;
-        this.showDown = true;
-      } else if (index == 0) {
-        this.getProductList(this.formInline);
-        this.showUp = false;
-        this.showDown = true;
+        console.log(this.multipleSelection);
+      },
+      tabChange(index, event) {
+        this.formInline.state = "";
+        this.formInline.minQuantity = "";
+        this.formInline.maxQuantity = "";
+        this.formInline.ifWarn = false;
+        this.active = index;
+        if (index == 1) {
+          this.getProductList(this.formInline);
+          this.showUp = true;
+          this.showDown = false;
+        } else if (index == 2) {
+          this.getProductList(this.formInline);
+          this.showUp = false;
+          this.showDown = true;
+        } else if (index == 3) {
+          this.getProductList(this.formInline);
+          this.showUp = false;
+          this.showDown = true;
+        } else if (index == 0) {
+          this.getProductList(this.formInline);
+          this.showUp = false;
+          this.showDown = true;
+        }
+      },
+      changePage(current) {
+        this.current = current;
+        this.getAgentList();
       }
-    },
-    changePage(current) {
-      this.current = current;
-      this.getAgentList();
     }
-  }
-};
+  };
 </script>
 <style scoped lang="scss">
-.tip-txt{
-  line-height: 40px;
+  .tip-txt {
+    line-height: 40px;
     font-size: 14px;
     color: #fff;
     background: #009486;
     padding: 0 15px;
     margin: 0 auto 20px;
     border-radius: 5px;
-}
+  }
 
 </style>

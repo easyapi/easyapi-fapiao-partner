@@ -1,11 +1,11 @@
 import Cookies from 'js-cookie'
 import axios from '@/api/fetch'
 import {accountUrl} from '@/api/api'
-import {getToken,removeToken} from '@/utils/auth'
+import {getToken, removeToken} from '@/utils/auth'
 
 const user = {
   state: {
-    userInfo:'',
+    userInfo: '',
     username: '',
     token: localStorage.getItem('token'),
   },
@@ -41,7 +41,7 @@ const user = {
       // Cookies.remove('userInfo');
       localStorage.removeItem('userInfo');
       localStorage.removeItem("token");
-      
+
     },
   }
 }

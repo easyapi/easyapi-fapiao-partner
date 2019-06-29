@@ -1,6 +1,5 @@
 import Cookies from 'js-cookie'
 
-
 export function getToken(TokenKey) {
   return Cookies.get(TokenKey)
 }

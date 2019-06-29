@@ -23,7 +23,7 @@ export function timestampTime(date, t) {
     var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate());
 
     return Y + M + D;
-  }else if (t === "time") {
+  } else if (t === "time") {
     var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
     var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
     var s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
@@ -32,6 +32,7 @@ export function timestampTime(date, t) {
   }
 
 }
+
 //获取本月第一天或最后一天
 /*
  *参数1-type：'mothFirst'或'mothLast' str
@@ -52,6 +53,7 @@ export function getCurrentMonth(type) {
   }
 
 }
+
 /*
  *【日期】获取上个月第一天或最后一天
  *  参数1-t：值为	firstDay/lastDay   str
@@ -115,22 +117,24 @@ export function getNextMonth(date) {
 export function GetQueryString(name) {
   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
   var r = window.location.search.substr(1).match(reg);
-  if (r != null)return unescape(r[2]);
+  if (r != null) return unescape(r[2]);
   return null;
 }
+
 //数组去重
 /*
  * 参数1：数组 arr
  * */
-export function removeRepet (arr) {
+export function removeRepet(arr) {
   return Array.from(new Set(arr));
 }
+
 //数组对象去重
 /*
  * 参数1：数组对象，arrObj
  * 参数二：属性名  str
  * */
-export function arrayUnique(arrObj, name){
+export function arrayUnique(arrObj, name) {
   var hash = {};
   return arrObj.reduce(function (item, next) {
     hash[next[name]] ? '' : hash[next[name]] = true && item.push(next);
@@ -152,35 +156,38 @@ export function findElem(arrObj, attr, val) {
   }
   return -1;
 }
+
 //根据区间，获取随机整数
 /*
  * 参数1：最小值
  * 参数2：最大值
  * 返回值：整数
  * */
-export function randomNum(n, m){
-  var random = Math.floor(Math.random()*(m-n+1)+n);
+export function randomNum(n, m) {
+  var random = Math.floor(Math.random() * (m - n + 1) + n);
   return random;
 }
+
 //标准简单sort排序 arrayObject.sort(sortby)  sortby必须是函数。
 /*
  * 参数1：数组/数组对象 arrObj
  * */
-export function simpleSort(arrObj){
+export function simpleSort(arrObj) {
 
-  return arrObj.sort((a,b)=>{
-    return a-b
+  return arrObj.sort((a, b) => {
+    return a - b
   });
 }
+
 //传数组返回逗号隔开字符串
 /*
  * 参数1：数组 arr
  * 返回值：str
  * */
-export function getArrBarterStr (arr) {
-  let str='';
-  for (let v of arr){
-    str+=v+','
+export function getArrBarterStr(arr) {
+  let str = '';
+  for (let v of arr) {
+    str += v + ','
   }
-  return str.substring(0,str.length-1)
+  return str.substring(0, str.length - 1)
 }

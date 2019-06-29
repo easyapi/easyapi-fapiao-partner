@@ -1,19 +1,20 @@
 <template>
-	<div class="layout">
-		<Header></Header>
-		<Aside></Aside>
-		<div class="main">
-			<router-view></router-view>
-		</div>
-	</div>
+  <div class="layout">
+    <Header></Header>
+    <Aside></Aside>
+    <div class="main">
+      <router-view></router-view>
+    </div>
+  </div>
 </template>
 <script>
-	import Header from '../../components/Header'
+  import Header from '../../components/Header'
   import Aside from '../../components/Aside'
+
   export default {
     name: 'LayOut',
     components: {
-      Header,Aside
+      Header, Aside
     },
     props: {},
     data() {
@@ -41,14 +42,14 @@
 <style scoped lang="scss">
 
 
-.el-main {
-	background-color: $cl-gray;
-	height: 100%;
-}
+  .el-main {
+    background-color: $cl-gray;
+    height: 100%;
+  }
 
-.el-container {
-	height: 100%;
-}
+  .el-container {
+    height: 100%;
+  }
 
 
 </style>

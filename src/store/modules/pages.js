@@ -1,4 +1,4 @@
-import { findElem } from '../../utils/fn';
+import {findElem} from '../../utils/fn';
 import Cookies from 'js-cookie';
 //基本一级页面配置 顶部导航及左侧可显示菜单
 //name，url不要重复
@@ -180,14 +180,14 @@ const pages = {
   },
 
   actions: {
-    setNavbar({ commit, state }, url) {
+    setNavbar({commit, state}, url) {
       let pagesList = state.pagesList;
       let index = findElem(pagesList, 'url', url)
       commit('SET_NAVBAR_AVTIVE', pagesList[index].name)
       commit('SET_SONS', pagesList[index].sons)
       commit('SET_SONS_NAVBAR_AVTIVE', pagesList[index].sons[0].sons[0].name)
     },
-    setSonsNavbarActive({ commit, state }, url) {
+    setSonsNavbarActive({commit, state}, url) {
       for (let v of state.extendPageList) {
         if (v.list.includes(url)) {
           commit('SET_SONS_NAVBAR_AVTIVE', v.name)
