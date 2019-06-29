@@ -12,7 +12,6 @@
   color: $cl-white;
 }
 
-
 //element-ui
 .el-input__prefix {
   line-height: 40px;
@@ -24,10 +23,11 @@
   min-width: 90px;
 }
 
-.table-header--gray>th{
-  background-color: $cl-gray!important;
+.table-header--gray > th {
+  background-color: $cl-gray !important;
 }
-.main-breadcrumb .el-breadcrumb__inner{
+
+.main-breadcrumb .el-breadcrumb__inner {
   font-size: 16px;
 }
 
@@ -174,15 +174,16 @@
   padding: 20px 20px 0 20px;
 }
 
-.search-content .el-form-item{
-  margin-right: 20px!important;
+.search-content .el-form-item {
+  margin-right: 20px !important;
   margin-bottom: 20px;
 
 }
 
-.pagination{
+.pagination {
   padding: 24px 0;
 }
+
 //登录注册
 .login, .register {
   height: 100%;
@@ -201,7 +202,7 @@
     }
 
     .login_box_lf, .register_box_lf {
-      background: url("../images/login_bg.jpg") no-repeat center;
+      background: url("../images/login_bg.png") no-repeat center;
       background-size: 100% 100%;
       padding: 0 50px;
       justify-content: center;
