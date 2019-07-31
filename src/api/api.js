@@ -12,7 +12,7 @@ export const getShopsUrl = `${fapiaoBaseUrl}/api/shops`;
 //获取平台列表(查询当前用户所属平台的子平台列表)
 export const getPlatformsUrl = `${fapiaoBaseUrl}/api/platforms`;
 //获取验证码
-export const getCaptchaUrl = `${fapiaoBaseUrl}/api/captcha`;
+export const getCaptchaUrl = `${fapiaoBaseUrl}/captcha`;
 //平台管理员:设置商户门店管理员
 export const addShopManagerUrl = `${fapiaoBaseUrl}/platform/add-shop-manager`;
 //获取 平台管理员跳转到 商户门店控制台需要的brearToken

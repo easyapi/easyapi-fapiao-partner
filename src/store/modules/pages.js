@@ -52,6 +52,7 @@ let list = [
   }
 ];
 let userInfoData = JSON.parse(localStorage.getItem("userInfo"));
+console.log(userInfoData);
 // let cookiesUserInfo = Cookies.get("userInfo");
 if (userInfoData && userInfoData.platform) {
   // let userInfo2Json = JSON.parse(cookiesUserInfo);
