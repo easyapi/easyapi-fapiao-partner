@@ -7,14 +7,12 @@ import 'nprogress/nprogress.css'
 import Cookies from 'js-cookie'
 import 'babel-polyfill'
 import axios from './api/fetch'
+
 Vue.prototype.$ajax = axios
 Vue.config.productionTip = false
 
-
-
-//font
-import './assets/font/iconfont.css'
-// import './assets/icon/iconfont.css'
+//iconfont
+import './assets/iconfont/iconfont.css'
 //css
 import './assets/css/custom-global.css'
 //styles
