@@ -1,33 +1,33 @@
 <template>
-	<div class="header flex-r">
-		<div class="header_logo flex-r">
-			<img src="../assets/images/logo.png" alt="">
-			<span class="fz-14">
+  <div class="header flex-r">
+    <div class="header_logo flex-r">
+      <img src="../assets/images/logo.png" alt="">
+      <span class="fz-14">
 				EasyAPI发票管理
 			</span>
-		</div>
-		<div class="header_navbar flex-r">
-			<a v-for="(item,index) in pagesList" :class="[navBarActive===item.name?'active':'']" :key="index"
-			   @click="jumpPage(item.url)">{{item.title}}</a>
-		</div>
-		<div class="header_account flex-r">
-			<el-popover v-model="showPopover" popper-class="el-popover--box" placement="bottom" visible-arrow width="50"
-			            trigger="click">
-				<ul>
-					<li @click="logOut">退出</li>
-				</ul>
-				<a slot="reference">
-					<img :src="userInfo.photo" alt="">
-				</a>
-			</el-popover>
+    </div>
+    <div class="header_navbar flex-r">
+      <a v-for="(item,index) in pagesList" :class="[navBarActive===item.name?'active':'']" :key="index"
+         @click="jumpPage(item.url)">{{item.title}}</a>
+    </div>
+    <div class="header_account flex-r">
+      <el-popover v-model="showPopover" popper-class="el-popover--box" placement="bottom" visible-arrow width="50" trigger="click">
+        <ul>
+          <li @click="logOut">退出</li>
+        </ul>
+        <a slot="reference">
+          <img :src="userInfo.photo" alt="">
+        </a>
+      </el-popover>
 
-		</div>
-	</div>
+    </div>
+  </div>
 
 </template>
 <script>
   import {mapGetters} from 'vuex'
   import Cookies from 'js-cookie'
+
   export default {
     name: "Header",
     components: {},
@@ -51,7 +51,7 @@
     },
     mounted() {
       this.$store.dispatch('setNavbar', this.$route.matched[0].path);
-      if (localStorage.getItem("token")){
+      if (localStorage.getItem("token")) {
         this.$store.dispatch('getUserInfo');
       } else {
         this.$message.warning("请先登录");
@@ -60,9 +60,11 @@
 
     },
     //keep-alive 组件激活时调用
-    activated() {},
+    activated() {
+    },
     //keep-alive 组件停用时调用。
-    deactivated() {},
+    deactivated() {
+    },
     //方法
     methods: {
       jumpPage(url) {
@@ -77,27 +79,27 @@
         this.$router.push('/login')
         this.$store.dispatch('logOut');
         this.showPopover = false;
-        
+
       }
     }
   }
 </script>
 <style scoped lang="scss">
-	.el-popover--box {
-		padding: 0;
+  .el-popover--box {
+    padding: 0;
 
-		ul {
-			li {
-				cursor: pointer;
-				line-height: 26px;
-				padding: 0 15px;
-			}
+    ul {
+      li {
+        cursor: pointer;
+        line-height: 26px;
+        padding: 0 15px;
+      }
 
-			&:hover {
-				background: $main-color;
-				color: $cl-white;
-			}
-		}
+      &:hover {
+        background: $main-color;
+        color: $cl-white;
+      }
+    }
 
-	}
+  }
 </style>

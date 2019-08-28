@@ -23,7 +23,7 @@ const user = {
     // 获取用户信息
     getUserInfo({commit, state}) {
       axios({
-        method: 'get',
+        method: 'GET',
         url: accountUrl,
       }).then(res => {
         console.log(res)

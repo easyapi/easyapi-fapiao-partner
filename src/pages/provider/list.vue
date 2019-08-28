@@ -216,7 +216,7 @@
       sendCaptcha() {
         this.btnDisabled = true;
         this.$ajax({
-          method: "post",
+          method: "POST",
           url: getCaptchaUrl,
           data: {
             mobile: this.formInline.username
@@ -248,7 +248,7 @@
             console.log(this.btnType);
             if (this.btnType == 1) {
               this.$ajax({
-                method: "post",
+                method: "POST",
                 url: addPlatformManagerUrl,
                 data: {
                   platformId: this.formInline.platformId,
@@ -272,7 +272,7 @@
                 });
             } else {
               this.$ajax({
-                method: "post",
+                method: "POST",
                 url: editPlatformUrl,
                 data: {
                   name: this.formInline.name
@@ -310,7 +310,7 @@
           this.state = 1;
         }
         this.$ajax({
-          method: "post",
+          method: "POST",
           url: editPlatformUrl + row.platformId,
           data: {
             state: this.state

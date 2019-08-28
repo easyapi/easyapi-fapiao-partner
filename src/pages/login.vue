@@ -91,7 +91,7 @@
         this.$refs[formName].validate(valid => {
           if (valid) {
             this.$ajax({
-              method: "post",
+              method: "POST",
               url: authenticateUrl,
               data: {
                 username: this.ruleForm.username,

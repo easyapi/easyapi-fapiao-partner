@@ -1,13 +1,13 @@
 <template>
-	<div class="aside">
-		<div class="navbar flex-c" v-for="(item,index) in sons" :key="index">
-			<h2>{{item.title}}</h2>
-			<a :class="[sonsBarActive===citem.name?'active':'']" v-for="(citem,cindex) in item.sons" :key="cindex"
-			   @click="jumpPage(citem.url,index)">
-				<span :class="['iconfont',citem.icon?citem.icon:'icon-member1']"></span>{{citem.title}}</a>
+  <div class="aside">
+    <div class="navbar flex-c" v-for="(item,index) in sons" :key="index">
+      <h2>{{item.title}}</h2>
+      <a :class="[sonsBarActive===citem.name?'active':'']" v-for="(citem,cindex) in item.sons" :key="cindex"
+         @click="jumpPage(citem.url,index)">
+        <span :class="['iconfont',citem.icon?citem.icon:'icon-member1']"></span>{{citem.title}}</a>
 
-		</div>
-	</div>
+    </div>
+  </div>
 </template>
 <script>
   import {mapGetters} from 'vuex'
@@ -41,7 +41,7 @@
     },
     //方法
     methods: {
-      jumpPage(url,i) {
+      jumpPage(url, i) {
         this.$router.push({path: url, query: {}});
         this.$store.dispatch('setSonsNavbarActive', url);
         // this.$store.dispatch('setSonsNavbar', {url:url,index:i});

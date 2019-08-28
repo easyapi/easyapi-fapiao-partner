@@ -246,7 +246,7 @@
       sendCaptcha() {
         this.btnDisabled = true;
         this.$ajax({
-          method: "post",
+          method: "POST",
           url: getCaptchaUrl,
           data: {
             mobile: this.formInline.username
@@ -271,8 +271,7 @@
           .then(res => {
             console.log(res);
             if (res.data.code == "1") {
-              // this.$router.push(res.data.content);
-              window.location.href = res.data.content;
+              window.open(res.data.content, '_blank')
             }
           })
           .catch(error => {
@@ -297,7 +296,7 @@
             console.log(this.btnType)
             if (this.btnType == 1) {
               this.$ajax({
-                method: "post",
+                method: "POST",
                 url: addShopManagerUrl,
                 data: {
                   shopId: this.formInline.shopId,
@@ -321,7 +320,7 @@
                 });
             } else {
               this.$ajax({
-                method: "post",
+                method: "POST",
                 url: sendShopUrl,
                 data: {
                   identifyNumber: this.formInline.identifyNumber,
