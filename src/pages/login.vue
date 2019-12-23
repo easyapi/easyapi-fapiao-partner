@@ -100,10 +100,8 @@
               }
             })
               .then(res => {
-                console.log(res);
                 if (res.status === 200 && res.data.id_token) {
                   localStorage.setItem("token", "Bearer " + res.data.id_token);
-                  // Cookies.set('token',"Bearer " + res.data.id_token,new Date(new Date().getTime()*30))
                   this.$ajax({
                     method: "GET",
                     url: accountUrl,
