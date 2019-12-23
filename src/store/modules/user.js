@@ -1,7 +1,6 @@
 import Cookies from 'js-cookie'
 import axios from '@/api/fetch'
 import {accountUrl} from '@/api/api'
-import {getToken, removeToken} from '@/utils/auth'
 
 const user = {
   state: {
@@ -26,7 +25,6 @@ const user = {
         method: 'GET',
         url: accountUrl,
       }).then(res => {
-        console.log(res)
         let userInfoData = res.data;
         Cookies.set('userInfo', userInfoData);
         commit('SET_USERNAME', userInfoData.username)
@@ -37,11 +35,8 @@ const user = {
     },
     // 退出登录
     logOut({commit, state}) {
-      // removeToken('authenticationToken');
-      // Cookies.remove('userInfo');
       localStorage.removeItem('userInfo');
       localStorage.removeItem("token");
-
     },
   }
 }

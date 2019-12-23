@@ -11,7 +11,8 @@
          @click="jumpPage(item.url)">{{item.title}}</a>
     </div>
     <div class="header_account flex-r">
-      <el-popover v-model="showPopover" popper-class="el-popover--box" placement="bottom" visible-arrow width="50" trigger="click">
+      <el-popover v-model="showPopover" popper-class="el-popover--box" placement="bottom" visible-arrow width="50"
+                  trigger="click">
         <ul>
           <li @click="logOut">退出</li>
         </ul>
@@ -74,12 +75,10 @@
         }
       },
       logOut() {
-        // Cookies.remove('userInfo');
         localStorage.removeItem('userInfo');
         this.$router.push('/login')
         this.$store.dispatch('logOut');
         this.showPopover = false;
-
       }
     }
   }

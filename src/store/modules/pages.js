@@ -1,12 +1,11 @@
 import {findElem} from '../../utils/fn';
-import Cookies from 'js-cookie';
 //基本一级页面配置 顶部导航及左侧可显示菜单
 //name，url不要重复
 /*
-* title标题
-* name routername
-* icon 图标class
-* url  路径
+* title 标题
+* name  路由名称
+* icon  图标class
+* url   路径
 * */
 let list = [
   {
@@ -52,10 +51,7 @@ let list = [
   }
 ];
 let userInfoData = JSON.parse(localStorage.getItem("userInfo"));
-console.log(userInfoData);
-// let cookiesUserInfo = Cookies.get("userInfo");
 if (userInfoData && userInfoData.platform) {
-  // let userInfo2Json = JSON.parse(cookiesUserInfo);
   let ifCanCreate = userInfoData.platform.ifCanCreate;
   console.log(ifCanCreate);
   if (ifCanCreate === true) {

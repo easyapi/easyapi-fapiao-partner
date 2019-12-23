@@ -39,7 +39,8 @@
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
               <el-button size="mini" @click="showDiglog(1,scope.$index,scope.row)">设置管理员</el-button>
-              <el-button size="mini" @click="editPlatform('',scope.$index, scope.row)">{{scope.row.state == 0?"停用":"启用"}}
+              <el-button size="mini" @click="editPlatform('',scope.$index, scope.row)">{{scope.row.state ==
+                0?"停用":"启用"}}
               </el-button>
             </template>
           </el-table-column>
@@ -185,10 +186,7 @@
               this.tableData = [];
             } else {
               this.tableData = res.data.content;
-
-
               this.total = res.data.totalElements;
-
             }
             this.loading = false;
           })
@@ -235,12 +233,10 @@
         this.loading = true;
         this.pageSize = val;
         this.getPlatformsList();
-        console.log(`每页 ${val} 条`);
       },
       handleCurrentChange(val) {
         this.current = val;
         this.getPlatformsList();
-        console.log(`当前页: ${val}`);
       },
       submitForm(formName) {
         this.$refs[formName].validate(valid => {

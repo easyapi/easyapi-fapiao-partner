@@ -191,7 +191,6 @@
           });
       },
       handleEdit(index, row) {
-        console.log(index, row.productId);
         this.$router.push({
           path: "/store/product-add",
           query: {
@@ -200,7 +199,6 @@
         });
       },
       handleSelectionChange(val) {
-        console.log(val);
         let productId = [];
         if (val.length != 0) {
           for (let key in val) {

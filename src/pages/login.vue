@@ -111,11 +111,7 @@
                   })
                     .then(res => {
                       type = res.data.content.type;
-                      console.log(res.data.content);
                       localStorage.setItem("userInfo", JSON.stringify(res.data.content));
-                      // let userInfoData = JSON.parse(localStorage.getItem("userInfo"));
-                      // localStorage.getItem("userInfo",res.data.content.platform.ifCanCreate);
-                      console.log(type);
                       if (type === "platform") {
                         this.$message.success("登录成功");
                         this.$store.dispatch("getUserInfo");
@@ -128,7 +124,6 @@
                     })
                     .catch(error => {
                       console.log(error.response);
-
                     });
                 } else {
                   this.$message.success(
@@ -146,7 +141,6 @@
           }
         });
       },
-
       jumpPage(url) {
         this.$router.push({path: url, query: {}});
       }

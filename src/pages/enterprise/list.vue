@@ -194,7 +194,6 @@
       // 获取列表
       getShopsList() {
         let CookiesUserInfo = Cookies.get('userInfo')
-        console.log(CookiesUserInfo);
         this.loading = true;
         this.$ajax({
           method: "GET",
@@ -231,7 +230,6 @@
         this.centerDialogVisible = true;
         this.btnType = type;
         this.formInline.shopId = row.shopId;
-        console.log(row.shopId);
         if (type == 0) {
           this.show1 = true;
           this.titleTips = "添加企业";
@@ -269,7 +267,6 @@
           params: {}
         })
           .then(res => {
-            console.log(res);
             if (res.data.code == "1") {
               window.open(res.data.content, '_blank')
             }
@@ -283,17 +280,14 @@
         this.loading = true;
         this.pageSize = val;
         this.getShopsList();
-        console.log(`每页 ${val} 条`);
       },
       handleCurrentChange(val) {
         this.current = val;
         this.getShopsList();
-        console.log(`当前页: ${val}`);
       },
       submitForm(formName) {
         this.$refs[formName].validate(valid => {
           if (valid) {
-            console.log(this.btnType)
             if (this.btnType == 1) {
               this.$ajax({
                 method: "POST",
@@ -346,10 +340,8 @@
         });
       },
       resetForm(formName) {
-        // this.centerDialogVisible = false;
         this.captchaTip = "获取验证码";
         this.btnDisabled = false;
-
         this.$refs[formName].resetFields();
       },
       getAgentList() {

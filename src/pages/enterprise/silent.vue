@@ -151,13 +151,10 @@
         this.loading = true;
         this.pageSize = val;
         this.getProductList(this.formInline);
-        console.log(`每页 ${val} 条`);
       },
       handleCurrentChange(val) {
         this.current = val;
-
         this.getProductList(this.formInline);
-        console.log(`当前页: ${val}`);
       },
       getAgentList() {
         let obj = {};
@@ -200,7 +197,6 @@
         });
       },
       handleSelectionChange(val) {
-        console.log(val);
         let productId = [];
         if (val.length != 0) {
           for (let key in val) {
@@ -210,8 +206,6 @@
         } else {
           this.multipleSelection = "";
         }
-
-        console.log(this.multipleSelection);
       },
       tabChange(index, event) {
         this.formInline.state = "";
