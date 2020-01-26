@@ -11,8 +11,7 @@
          @click="jumpPage(item.url)">{{item.title}}</a>
     </div>
     <div class="header_account flex-r">
-      <el-popover v-model="showPopover" popper-class="el-popover--box" placement="bottom" visible-arrow width="50"
-                  trigger="click">
+      <el-popover v-model="showPopover" popper-class="el-popover--box" placement="bottom" visible-arrow width="50" trigger="click">
         <ul>
           <li @click="logOut">退出</li>
         </ul>
@@ -20,7 +19,6 @@
           <img :src="userInfo.photo" alt="">
         </a>
       </el-popover>
-
     </div>
   </div>
 
@@ -60,13 +58,10 @@
       }
 
     },
-    //keep-alive 组件激活时调用
     activated() {
     },
-    //keep-alive 组件停用时调用。
     deactivated() {
     },
-    //方法
     methods: {
       jumpPage(url) {
         if (this.$route.path.indexOf(url) === -1) {
