@@ -15,7 +15,7 @@ export const getPlatformsUrl = `${fapiaoBaseUrl}/api/platforms`;
 export const getCaptchaUrl = `${fapiaoBaseUrl}/captcha`;
 //平台管理员:设置商户门店管理员
 export const addShopManagerUrl = `${fapiaoBaseUrl}/platform/add-shop-manager`;
-//获取 平台管理员跳转到 商户门店控制台需要的brearToken
+//获取 平台管理员跳转到 商户门店控制台需要的brearTokenncu
 export const jumpShopUrl = `${fapiaoBaseUrl}/api/authenticate/jump-shop/`;
 //添加商户门店信息
 export const sendShopUrl = `${fapiaoBaseUrl}/api/shop`;
