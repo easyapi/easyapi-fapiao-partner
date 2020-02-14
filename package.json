@@ -15,6 +15,7 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.4.1",
     "js-cookie": "^2.2.1",
+    "node-sass": "D:\\workspace\\easyapi-fapiao-partner>\"D:\\software\\nodejs\\\\node.exe\"  \"D:\\software\\nodejs\\\\node_modules\\npm\\bin\\npm-cli.js\" config get save-prefix \r\n^4.13.1",
     "sortablejs": "^1.10.2",
     "vue": "^2.6.11",
     "vue-quill-editor": "^3.0.6",
