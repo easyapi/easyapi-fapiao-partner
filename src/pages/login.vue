@@ -38,7 +38,8 @@
   </div>
 </template>
 <script>
-  import {authenticateUrl, accountUrl} from "../api/api";
+  import {authenticateUrl} from "../api/api";
+  import {getUser} from "../api/account";
 
   export default {
     name: "Login",
@@ -102,27 +103,21 @@
               .then(res => {
                 if (res.status === 200 && res.data.id_token) {
                   localStorage.setItem("token", "Bearer " + res.data.id_token);
-                  this.$ajax({
-                    method: "GET",
-                    url: accountUrl,
-                    params: {}
-                  })
-                    .then(res => {
-                      type = res.data.content.type;
-                      localStorage.setItem("userInfo", JSON.stringify(res.data.content));
-                      if (type === "platform") {
-                        this.$message.success("登录成功");
-                        this.$store.dispatch("getUserInfo");
-                        setTimeout(() => {
-                          this.$router.push("/invoice/enterprise-list");
-                        }, 1000);
-                      } else {
-                        this.$message.error("你不属于该平台");
-                      }
-                    })
-                    .catch(error => {
-                      console.log(error.response);
-                    });
+                  getUser().then(res => {
+                    type = res.data.content.type;
+                    localStorage.setItem("userInfo", JSON.stringify(res.data.content));
+                    if (type === "platform") {
+                      this.$message.success("登录成功");
+                      this.$store.dispatch("getUserInfo");
+                      setTimeout(() => {
+                        this.$router.push("/invoice/enterprise-list");
+                      }, 1000);
+                    } else {
+                      this.$message.error("你不属于该平台");
+                    }
+                  }).catch(error => {
+                    console.log(error.response);
+                  });
                 } else {
                   this.$message.success(
                     `${res.data.message},${res.data.content}`

@@ -15,24 +15,24 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.4.1",
     "js-cookie": "^2.2.1",
-    "node-sass": "D:\\workspace\\easyapi-fapiao-partner>\"D:\\software\\nodejs\\\\node.exe\"  \"D:\\software\\nodejs\\\\node_modules\\npm\\bin\\npm-cli.js\" config get save-prefix \r\n^4.13.1",
+    "node-sass": "^4.13.1",
     "sortablejs": "^1.10.2",
     "vue": "^2.6.11",
     "vue-quill-editor": "^3.0.6",
-    "vue-router": "^3.1.5",
+    "vue-router": "^3.1.6",
     "vuedraggable": "^2.23.2",
-    "vuex": "^3.1.2"
+    "vuex": "^3.1.3"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.2.2",
-    "@vue/cli-plugin-eslint": "^4.2.2",
-    "@vue/cli-service": "^4.2.2",
-    "babel-eslint": "^10.0.3",
+    "@vue/cli-plugin-babel": "^4.2.3",
+    "@vue/cli-plugin-eslint": "^4.2.3",
+    "@vue/cli-service": "^4.2.3",
+    "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
-    "eslint-plugin-vue": "^6.1.2",
+    "eslint-plugin-vue": "^6.2.2",
     "node-sass": "^4.13.1",
     "sass-loader": "^8.0.2",
-    "webpack": "^4.41.6",
+    "webpack": "^4.42.0",
     "style-resources-loader": "^1.3.3",
     "vue-template-compiler": "^2.6.11"
   }
