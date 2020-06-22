@@ -4,7 +4,7 @@
       <div class="login_box_lf flex-c">
         <div class="welcome fz-cl-white">
           <span class="fz-18">欢迎来到</span>
-          <p class="fz-36">EasyAPI服务商平台</p>
+          <p class="fz-36">EasyAPI发票管理服务商中心</p>
         </div>
       </div>
       <div class="login_box_rt">
@@ -38,8 +38,7 @@
   </div>
 </template>
 <script>
-  import {authenticateUrl} from "../api/api";
-  import {getUser} from "../api/account";
+  import {login, getUser} from "../api/account";
 
   export default {
     name: "Login",
@@ -91,45 +90,34 @@
 
         this.$refs[formName].validate(valid => {
           if (valid) {
-            this.$ajax({
-              method: "POST",
-              url: authenticateUrl,
-              data: {
-                username: this.ruleForm.username,
-                password: this.ruleForm.password,
-                rememberMe: this.rememberMe
+            login(this.ruleForm.username, this.ruleForm.password, this.rememberMe).then(res => {
+              if (res.status === 200 && res.data.id_token) {
+                localStorage.setItem("token", "Bearer " + res.data.id_token);
+                getUser().then(res => {
+                  type = res.data.content.type;
+                  localStorage.setItem("userInfo", JSON.stringify(res.data.content));
+                  if (type === "platform") {
+                    this.$message.success("登录成功");
+                    this.$store.dispatch("getUserInfo");
+                    setTimeout(() => {
+                      this.$router.push("/invoice/enterprise-list");
+                    }, 1000);
+                  } else {
+                    this.$message.error("你不属于该平台");
+                  }
+                }).catch(error => {
+                  console.log(error.response);
+                });
+              } else {
+                this.$message.success(
+                  `${res.data.message},${res.data.content}`
+                );
               }
-            })
-              .then(res => {
-                if (res.status === 200 && res.data.id_token) {
-                  localStorage.setItem("token", "Bearer " + res.data.id_token);
-                  getUser().then(res => {
-                    type = res.data.content.type;
-                    localStorage.setItem("userInfo", JSON.stringify(res.data.content));
-                    if (type === "platform") {
-                      this.$message.success("登录成功");
-                      this.$store.dispatch("getUserInfo");
-                      setTimeout(() => {
-                        this.$router.push("/invoice/enterprise-list");
-                      }, 1000);
-                    } else {
-                      this.$message.error("你不属于该平台");
-                    }
-                  }).catch(error => {
-                    console.log(error.response);
-                  });
-                } else {
-                  this.$message.success(
-                    `${res.data.message},${res.data.content}`
-                  );
-                }
-              })
-              .catch(error => {
-                console.log(error.response);
-                this.$message.error('用户名或密码不正确！');
-              });
+            }).catch(error => {
+              console.log(error.response);
+              this.$message.error('用户名或密码不正确！');
+            });
           } else {
-            console.log("error submit!!");
             return false;
           }
         });

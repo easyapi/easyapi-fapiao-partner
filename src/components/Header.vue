@@ -16,7 +16,7 @@
           <li @click="logOut">退出</li>
         </ul>
         <a slot="reference">
-          <img :src="userInfo.photo" alt="">
+          {{userInfo.content.nickname}}
         </a>
       </el-popover>
     </div>

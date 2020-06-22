@@ -1,9 +1,9 @@
 import {baseUrl} from "./api";
+import axios from 'axios'
 
-//接口跟地址
+//获取商户门店列表
+export const getShopsUrl = `${baseUrl}/api/shops`;
 
-//登录
-export const authenticateUrl = `${baseUrl}/api/authenticate`;
-//获取用户信息
-export const accountUrl = `${baseUrl}/api/account`;
 
+// 平台员工:获取商户门店开票累计列表
+export const getShopSummaiesUrl = `${baseUrl}/api/shop-summaries`;

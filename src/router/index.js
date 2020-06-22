@@ -43,7 +43,6 @@ export default new Router({
           name: 'Warning',
           component: () => import(/* webpackChunkName: "store" */ '../pages/enterprise/warning.vue')
         },
-        //服务商
         {
           path: 'provider-list',
           name: 'ProviderList',

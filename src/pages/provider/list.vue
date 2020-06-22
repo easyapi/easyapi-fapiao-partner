@@ -180,8 +180,7 @@
             size: this.pageSize,
             keyword: this.formInline.keyword
           }
-        })
-          .then(res => {
+        }).then(res => {
             if (res.data.code === 0) {
               this.tableData = [];
             } else {
@@ -189,8 +188,7 @@
               this.total = res.data.totalElements;
             }
             this.loading = false;
-          })
-          .catch(error => {
+          }).catch(error => {
             console.log(error);
           });
       },

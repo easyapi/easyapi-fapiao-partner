@@ -267,7 +267,7 @@
           params: {}
         })
           .then(res => {
-            if (res.data.code == "1") {
+            if (res.data.code == 1) {
               window.open(res.data.content, '_blank')
             }
           })
