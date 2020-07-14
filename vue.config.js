@@ -16,7 +16,7 @@ module.exports = {
       // 给 sass-loader 传递选项
       sass: {
         // @/ 是 src/ 的别名
-        prependData: `@import "@/assets/styles/colors.scss";`
+        additionalData: `@import "@/assets/styles/colors.scss";`
       }
     }
   },
