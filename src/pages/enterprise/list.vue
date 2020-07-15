@@ -94,11 +94,11 @@
           <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
-            :current-page="current"
+            :current-page="pagination.page"
             :page-sizes="[15, 30, 45, 60]"
-            :page-size="15"
+            :page-size="pagination.size"
             layout="total, sizes, prev, pager, next, jumper"
-            :total="total"
+            :total="pagination.total"
           ></el-pagination>
         </div>
       </div>
@@ -107,13 +107,8 @@
 </template>
 <script>
   import {
-    getShopsUrl,
-    getCaptchaUrl,
-    addShopManagerUrl,
-    jumpShopUrl,
-    sendShopUrl
-  } from "../../api/api";
-  import Cookies from 'js-cookie';
+    getShopList, createShop
+  } from "../../api/shop";
 
   export default {
     name: "",
@@ -138,12 +133,14 @@
         addTime: "",
         tableData: [],
         active: 0,
-        current: 1,
-        pageSize: 15,
         show1: false,
         show2: false,
         multipleSelection: "",
-        total: 0,
+        pagination: {
+          page: 1,
+          size: 15,
+          total: 0
+        },
         loading: true,
         btnDisabled: false,
         rules: {
@@ -193,29 +190,21 @@
     methods: {
       // 获取列表
       getShopsList() {
-        let CookiesUserInfo = Cookies.get('userInfo')
         this.loading = true;
-        this.$ajax({
-          method: "GET",
-          url: getShopsUrl,
-          params: {
-            page: this.current - 1,
-            size: this.pageSize,
-            keyword: this.formInline.keyword
+        this.pagination.page = this.pagination.page - 1
+        let params = {...this.pagination}
+        params.keyword = this.formInline.keyword
+        getShopList(params).then(res => {
+          if (res.data.code === 0) {
+            this.tableData = [];
+          } else {
+            this.tableData = res.data.content;
+            this.pagination.total = res.data.totalElements;
           }
-        })
-          .then(res => {
-            if (res.data.code === 0) {
-              this.tableData = [];
-            } else {
-              this.tableData = res.data.content;
-              this.total = res.data.totalElements;
-            }
-            this.loading = false;
-          })
-          .catch(error => {
-            console.log(error);
-          });
+          this.loading = false;
+        }).catch(error => {
+          console.log(error);
+        });
       },
       // 通过状态码判断显示API状态
       formatState(row, column, cellValue) {
@@ -278,61 +267,49 @@
       },
       handleSizeChange(val) {
         this.loading = true;
-        this.pageSize = val;
+        this.pagination.size = val;
         this.getShopsList();
       },
       handleCurrentChange(val) {
-        this.current = val;
+        this.pagination.page = val;
         this.getShopsList();
       },
       submitForm(formName) {
         this.$refs[formName].validate(valid => {
           if (valid) {
             if (this.btnType == 1) {
-              this.$ajax({
-                method: "POST",
-                url: addShopManagerUrl,
-                data: {
-                  shopId: this.formInline.shopId,
-                  username: this.formInline.username,
-                  code: this.formInline.code,
-                  nickname: this.formInline.nickname,
-                  password: this.formInline.password
+              let data = {};
+              data.shopId = this.formInline.shopId
+              data.username = this.formInline.username
+              data.code = this.formInline.code
+              data.nickname = this.formInline.nickname
+              data.password = this.formInline.password
+              createShop(data).then(res => {
+                if (res.status === 200) {
+                  this.centerDialogVisible = false;
+                  this.$message.success("设置成功！");
+                } else if (res.data.code === 0) {
+                  this.$message.error("设置失败！");
                 }
-              })
-                .then(res => {
-                  if (res.status === 200) {
-                    this.centerDialogVisible = false;
-                    this.$message.success("设置成功！");
-                  } else if (res.data.code === 0) {
-                    this.$message.error("设置失败！");
-                  }
-                })
-                .catch(error => {
-                  this.$message.error(error.response.data.message);
-                  console.log(error.response);
-                });
+              }).catch(error => {
+                this.$message.error(error.response.data.message);
+                console.log(error.response);
+              });
             } else {
-              this.$ajax({
-                method: "POST",
-                url: sendShopUrl,
-                data: {
-                  identifyNumber: this.formInline.identifyNumber,
-                  name: this.formInline.name
+              let data = {};
+              data.identifyNumber = this.formInline.identifyNumber
+              data.name = this.formInline.name
+              createShop(data).then(res => {
+                if (res.status === 200) {
+                  this.centerDialogVisible = false;
+                  this.$message.success("添加成功！");
+                  this.getShopsList();
+                } else if (res.data.code === 0) {
+                  this.$message.error("添加失败！");
                 }
-              })
-                .then(res => {
-                  if (res.status === 200) {
-                    this.centerDialogVisible = false;
-                    this.$message.success("添加成功！");
-                    this.getShopsList();
-                  } else if (res.data.code === 0) {
-                    this.$message.error("添加失败！");
-                  }
-                })
-                .catch(error => {
-                  this.$message.error(error.response.data.message);
-                });
+              }).catch(error => {
+                this.$message.error(error.response.data.message);
+              });
             }
           } else {
             console.log("error submit!!");
@@ -346,34 +323,30 @@
       },
       getAgentList() {
         let obj = {};
-        obj.page = this.current - 1;
-        obj.size = this.pageSize;
+        obj.page = this.pagination.page - 1;
+        obj.size = this.pagination.size;
         obj.nickname = this.nickname;
         obj.phone = this.phone;
         obj.startAddTime = this.startTime;
         obj.endAddTime = this.endTime;
         obj.area = this.area;
         obj.areaType = this.areaType;
-
         this.$ajax({
           method: "GET",
           url: agentsUrl,
           params: obj
-        })
-          .then(res => {
-            if (res.status === 200) {
-              this.tableData = res.data.content;
-              this.total = Number(res.data.totalElements);
-            } else if (res.data.code === 0) {
-              this.tableData = [];
-              this.total = 0;
-            }
-          })
-          .catch(error => {
-            console.log(error.response);
+        }).then(res => {
+          if (res.status === 200) {
+            this.tableData = res.data.content;
+            this.pagination.total = Number(res.data.totalElements);
+          } else if (res.data.code === 0) {
             this.tableData = [];
-            this.total = 0;
-          });
+            this.pagination.total = 0;
+          }
+        }).catch(error => {
+          this.tableData = [];
+          this.pagination.total = 0;
+        });
       },
       handleEdit(index, row) {
         console.log(index, row.productId);

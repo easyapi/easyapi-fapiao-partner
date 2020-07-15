@@ -53,7 +53,6 @@ let list = [
 let userInfoData = JSON.parse(localStorage.getItem("userInfo"));
 if (userInfoData && userInfoData.platform) {
   let ifCanCreate = userInfoData.platform.ifCanCreate;
-  console.log(ifCanCreate);
   if (ifCanCreate === true) {
     list = [
       {
@@ -191,7 +190,6 @@ const pages = {
         }
       }
     }
-
   }
 }
 

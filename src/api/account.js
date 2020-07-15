@@ -7,11 +7,9 @@ import axios from 'axios'
  * @see https://www.easyai.com
  */
 export const login = (username, password, rememberMe) => axios.post(`${baseUrl}/api/authenticate`, {
-  data: {
-    username: username,
-    password: password,
-    rememberMe: rememberMe
-  }
+  username: username,
+  password: password,
+  rememberMe: rememberMe
 })
 
 /**

@@ -87,7 +87,6 @@
     methods: {
       submit(formName) {
         let type = "";
-
         this.$refs[formName].validate(valid => {
           if (valid) {
             login(this.ruleForm.username, this.ruleForm.password, this.rememberMe).then(res => {

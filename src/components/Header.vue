@@ -16,7 +16,7 @@
           <li @click="logOut">退出</li>
         </ul>
         <a slot="reference">
-          {{userInfo.content.nickname}}
+          {{userInfo.nickname}}
         </a>
       </el-popover>
     </div>
