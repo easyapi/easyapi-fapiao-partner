@@ -79,11 +79,11 @@
           <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
-            :current-page="current"
+            :current-page="pagination.page"
             :page-sizes="[15, 30, 45, 60]"
-            :page-size="15"
+            :page-size="pagination.size"
             layout="total, sizes, prev, pager, next, jumper"
-            :total="total"
+            :total="pagination.total"
           ></el-pagination>
         </div>
       </div>
@@ -97,6 +97,9 @@
     addPlatformManagerUrl,
     editPlatformUrl
   } from "../../api/api";
+  import {
+    getPlatformList
+  } from "../../api/provider";
 
   export default {
     name: "",
@@ -123,8 +126,11 @@
         captchaTip: "获取验证码",
         titleTips: "提示",
         active: 0,
-        current: 1,
-        pageSize: 15,
+        pagination: {
+          page: 1,
+          size: 15,
+          total: 0
+        },
         multipleSelection: "",
         total: 0,
         loading: true,
@@ -171,26 +177,20 @@
     methods: {
       // 获取列表
       getPlatformsList() {
-        this.loading = true;
-        this.$ajax({
-          method: "GET",
-          url: getPlatformsUrl,
-          params: {
-            page: this.current - 1,
-            size: this.pageSize,
-            keyword: this.formInline.keyword
+        this.pagination.page = this.pagination.page - 1
+        let params = {...this.pagination}
+        params.keyword = this.formInline.keyword
+        getPlatformList(params).then(res => {
+          if (res.data.code === 0) {
+            this.tableData = [];
+          } else {
+            this.tableData = res.data.content;
+            this.pagination.total = res.data.totalElements;
           }
-        }).then(res => {
-            if (res.data.code === 0) {
-              this.tableData = [];
-            } else {
-              this.tableData = res.data.content;
-              this.total = res.data.totalElements;
-            }
-            this.loading = false;
-          }).catch(error => {
-            console.log(error);
-          });
+          this.loading = false;
+        }).catch(error => {
+          console.log(error);
+        });
       },
       // 弹出框
       showDiglog(type, index, row) {

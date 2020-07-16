@@ -29,11 +29,11 @@
           <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
-            :current-page="current"
+            :current-page="pagination.page"
             :page-sizes="[15, 30, 45, 60]"
-            :page-size="15"
+            :page-size="pagination.size"
             layout="total, sizes, prev, pager, next, jumper"
-            :total="total"
+            :total="pagination.total"
           ></el-pagination>
         </div>
       </div>
@@ -42,6 +42,9 @@
 </template>
 <script>
   import {sxproductUrl, getShopSummaiesUrl} from "../../api/api";
+  import {
+    getShopSummaryList
+  } from "../../api/shop";
 
   export default {
     name: "",
@@ -95,9 +98,11 @@
           ]
         },
         active: 0,
-
-        current: 1,
-        pageSize: 15,
+        pagination: {
+          page: 1,
+          size: 15,
+          total: 0
+        },
         multipleSelection: "",
         showDown: true,
         showUp: false,
@@ -124,28 +129,20 @@
     methods: {
       // 获取列表
       getShopSummaiesList() {
-        this.loading = true;
-        this.$ajax({
-          method: "GET",
-          url: getShopSummaiesUrl,
-          params: {
-            page: this.current - 1,
-            size: this.pageSize,
-            type: 2
+        this.pagination.page = this.pagination.page - 1
+        let params = {...this.pagination}
+        params.keyword = this.formInline.keyword
+        getShopSummaryList(params).then(res => {
+          if (res.data.code === 0) {
+            this.tableData = [];
+          } else {
+            this.tableData = res.data.content;
+            this.pagination.total = res.data.totalElements;
           }
-        })
-          .then(res => {
-            if (res.data.code === 0) {
-              this.tableData = [];
-            } else {
-              this.tableData = res.data.content;
-              this.total = res.data.totalElements;
-            }
-            this.loading = false;
-          })
-          .catch(error => {
-            console.log(error);
-          });
+          this.loading = false;
+        }).catch(error => {
+          console.log(error);
+        });
       },
       handleSizeChange(val) {
         this.loading = true;
