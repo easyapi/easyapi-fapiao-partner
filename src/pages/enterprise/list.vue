@@ -71,10 +71,10 @@
 
             <div v-if="show2">
               <el-form-item label="管理员账号：" prop="username">
-                <el-input type="number" v-model="formInline.username"></el-input>
+                <el-input type="text" v-model="formInline.username"></el-input>
               </el-form-item>
               <el-form-item label="验证码：" prop="code">
-                <el-input type="number" v-model="formInline.code" style="width:50%;"></el-input>
+                <el-input type="text" v-model="formInline.code" style="width:50%;"></el-input>
                 <el-button @click="sendCaptcha" :disabled="btnDisabled">{{captchaTip}}</el-button>
               </el-form-item>
               <el-form-item label="用户昵称：" prop="nickname">
