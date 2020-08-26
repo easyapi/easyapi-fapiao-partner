@@ -90,6 +90,32 @@
             <el-button type="primary" @click="submitForm('formInline')">保 存</el-button>
           </span>
         </el-dialog>
+        <el-dialog
+          title="选择管理员"
+          :modal-append-to-body="false"
+          width="30%"
+          :visible.sync="adminDialog">
+          <el-table
+            :data="adminTableData"
+            style="width: 100%"
+            :cell-style="cellStyle"
+            :header-cell-style="rowClass"
+          >
+            <el-table-column
+              prop="admin"
+              label="管理员"
+              width="180">
+            </el-table-column>
+            <el-table-column
+              fixed="right"
+              label="操作"
+              width="180">
+              <template slot-scope="scope">
+                <el-button @click="handleClick(scope.row)" type="text" size="small">进入控制台</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-dialog>
         <div class="pagination text-align-right">
           <el-pagination
             @size-change="handleSizeChange"
@@ -107,7 +133,7 @@
 </template>
 <script>
   import {
-    getShopList, createShop
+    getShopList, createShop,getAdminList,sendCaptcha
   } from "../../api/shop";
 
   export default {
@@ -116,6 +142,8 @@
     props: {},
     data() {
       return {
+        adminDialog: false,
+        adminTableData:[],
         centerDialogVisible: false,
         btnType: "",
         captchaTip: "获取验证码",
@@ -232,13 +260,10 @@
       // 发送验证码
       sendCaptcha() {
         this.btnDisabled = true;
-        this.$ajax({
-          method: "POST",
-          url: getCaptchaUrl,
-          data: {
-            mobile: this.formInline.username
-          }
-        })
+        let params={
+          mobile: this.formInline.username
+        }
+        sendCaptcha(params)
           .then(res => {
             this.captchaTip = "获取成功";
           })
@@ -250,12 +275,8 @@
       },
       // 跳转控制台
       jump2console(index, row) {
-        this.$ajax({
-          method: "GET",
-          url: jumpShopUrl + row.shopId,
-          params: {}
-        })
-          .then(res => {
+        this.adminDialog = true
+        getAdminList(row.shopId).then(res => {
             if (res.data.code == 1) {
               window.open(res.data.content, '_blank')
             }
