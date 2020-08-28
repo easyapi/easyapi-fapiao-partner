@@ -92,14 +92,13 @@
 </template>
 <script>
   import {
-    getCaptchaUrl,
-    getPlatformsUrl,
-    addPlatformManagerUrl,
-    editPlatformUrl
-  } from "../../api/api";
-  import {
-    getPlatformList
+    getPlatformList,
+    addPlatformList,
+    addPlatformManagerUrl
   } from "../../api/provider";
+  import {
+    sendCaptcha
+  } from "../../api/shop";
 
   export default {
     name: "",
@@ -118,6 +117,7 @@
         },
         addTime: "",
         state: "",
+        btnDisabled: false,
         show1: false,
         show2: false,
         tableData: [],
@@ -211,13 +211,10 @@
       // 发送验证码
       sendCaptcha() {
         this.btnDisabled = true;
-        this.$ajax({
-          method: "POST",
-          url: getCaptchaUrl,
-          data: {
-            mobile: this.formInline.username
-          }
-        })
+        let params = {
+          mobile: this.formInline.username
+        }
+        sendCaptcha(params)
           .then(res => {
             this.captchaTip = "获取成功";
           })
@@ -241,17 +238,14 @@
           if (valid) {
             console.log(this.btnType);
             if (this.btnType == 1) {
-              this.$ajax({
-                method: "POST",
-                url: addPlatformManagerUrl,
-                data: {
-                  platformId: this.formInline.platformId,
-                  username: this.formInline.username,
-                  code: this.formInline.code,
-                  nickname: this.formInline.nickname,
-                  password: this.formInline.password
-                }
-              })
+              let data = {
+                platformId: this.formInline.platformId,
+                username: this.formInline.username,
+                code: this.formInline.code,
+                nickname: this.formInline.nickname,
+                password: this.formInline.password
+              }
+              addPlatformManagerUrl(data)
                 .then(res => {
                   if (res.status === 200) {
                     this.centerDialogVisible = false;
@@ -265,13 +259,10 @@
                   console.log(error.response);
                 });
             } else {
-              this.$ajax({
-                method: "POST",
-                url: editPlatformUrl,
-                data: {
-                  name: this.formInline.name
-                }
-              })
+              let data = {
+                name: this.formInline.name
+              }
+              addPlatformList(data)
                 .then(res => {
                   if (res.status === 200) {
                     this.centerDialogVisible = false;

@@ -133,7 +133,7 @@
 </template>
 <script>
   import {
-    getShopList, createShop,getAdminList,sendCaptcha
+    getShopList, createShop,getAdminList,sendCaptcha,getAdmin
   } from "../../api/shop";
 
   export default {
@@ -275,10 +275,12 @@
       },
       // 跳转控制台
       jump2console(index, row) {
+        console.log(row)
         this.adminDialog = true
         getAdminList(row.shopId).then(res => {
+          console.log(res)
             if (res.data.code == 1) {
-              window.open(res.data.content, '_blank')
+              // window.open(res.data.content, '_blank')
             }
           })
           .catch(error => {
