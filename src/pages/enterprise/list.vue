@@ -133,7 +133,7 @@
 </template>
 <script>
   import {
-    getShopList, createShop,getAdminList,sendCaptcha,getAdmin
+    getShopList, createShop,createShopManger,sendCaptcha,getAdmin
   } from "../../api/shop";
 
   export default {
@@ -275,11 +275,12 @@
       },
       // 跳转控制台
       jump2console(index, row) {
-        console.log(row)
-        this.adminDialog = true
-        getAdminList(row.shopId).then(res => {
+        // getAdminList(row.shopId)
+        axios.get("http://localhost:9999/platform/"+{id}+"/users")
+          .then(res => {
           console.log(res)
             if (res.data.code == 1) {
+              this.adminDialog = true
               // window.open(res.data.content, '_blank')
             }
           })
@@ -307,7 +308,7 @@
               data.code = this.formInline.code
               data.nickname = this.formInline.nickname
               data.password = this.formInline.password
-              createShop(data).then(res => {
+              createShopManger(data).then(res => {
                 if (res.status === 200) {
                   this.centerDialogVisible = false;
                   this.$message.success("设置成功！");

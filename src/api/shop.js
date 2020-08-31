@@ -10,14 +10,15 @@ export const getShopList = (params) => axios.get(`${baseUrl}/api/shops`, {
   }
 });
 
+//发送验证码
 export const sendCaptcha = (params) => axios.get(`${baseUrl}/captcha/send`, {
   params: {
     ...params
   }
 });
 
-export const getAdminList = (id) => axios.get(`${baseUrl}/api/authenticate/jump-shop/${id}`
-);
+// export const getAdminList = (id) => axios.get(`${baseUrl}/api/authenticate/jump-shop/${id}`
+// );
 
 export const getAdmin = (id) => axios.get(`${baseUrl}/api/authenticate/jump-shop/${id}`
 );
@@ -34,8 +35,23 @@ export const getShopSummaryList = (params) => axios.get(`${baseUrl}/api/shop-sum
 /**
  * 创建商户信息
  */
-export const createShop = (data) => axios.post(`${baseUrl}/platform/add-shop-manager`, {
+export const createShop = (data) => axios.post(`${baseUrl}/api/shop`, {
   ...data
 });
 
+/**
+ * 创建商户管理员
+ */
+export const createShopManger = (data) => axios.post(`${baseUrl}/platform/add-shop-manager`, {
+  ...data
+});
+
+/**
+ * 获取企业管理员列表
+ */
+export const getAdminList = (params) => axios.get(`${baseUrl}/platform/${id}/users`, {
+  params: {
+    ...params
+  }
+});
 
