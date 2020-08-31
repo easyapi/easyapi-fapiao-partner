@@ -33,9 +33,9 @@
           style="width: 100%"
           @selection-change="handleSelectionChange"
         >
-          <el-table-column prop="platform.platformId" label="序号" align="center"></el-table-column>
+          <el-table-column prop="platformId" label="序号" align="center"></el-table-column>
           <el-table-column prop="addTime" label="添加时间" align="center"></el-table-column>
-          <el-table-column prop="shop.name" label="服务商名称" align="center"></el-table-column>
+          <el-table-column prop="name" label="服务商名称" align="center"></el-table-column>
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
               <el-button size="mini" @click="showDiglog(1,scope.$index,scope.row)">设置管理员</el-button>
@@ -236,7 +236,6 @@
       submitForm(formName) {
         this.$refs[formName].validate(valid => {
           if (valid) {
-            console.log(this.btnType);
             if (this.btnType == 1) {
               let data = {
                 platformId: this.formInline.platformId,
@@ -247,7 +246,7 @@
               }
               addPlatformManagerUrl(data)
                 .then(res => {
-                  if (res.status === 200) {
+                  if (res.data.code == 1) {
                     this.centerDialogVisible = false;
                     this.$message.success("设置成功！");
                   } else if (res.data.code === 0) {

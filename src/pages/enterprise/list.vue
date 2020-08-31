@@ -102,7 +102,7 @@
             :header-cell-style="rowClass"
           >
             <el-table-column
-              prop="admin"
+              prop="nickname"
               label="管理员"
               width="180">
             </el-table-column>
@@ -133,7 +133,7 @@
 </template>
 <script>
   import {
-    getShopList, createShop,createShopManger,sendCaptcha,getAdmin
+    getShopList, createShop, createShopManger, sendCaptcha, getAdminList, jumpShopUrl
   } from "../../api/shop";
 
   export default {
@@ -143,11 +143,12 @@
     data() {
       return {
         adminDialog: false,
-        adminTableData:[],
+        adminTableData: [],
         centerDialogVisible: false,
         btnType: "",
         captchaTip: "获取验证码",
         titleTips: "提示",
+        shopId:'',
         formInline: {
           keyword: '',
           shopId: "",
@@ -260,7 +261,7 @@
       // 发送验证码
       sendCaptcha() {
         this.btnDisabled = true;
-        let params={
+        let params = {
           mobile: this.formInline.username
         }
         sendCaptcha(params)
@@ -275,19 +276,30 @@
       },
       // 跳转控制台
       jump2console(index, row) {
-        // getAdminList(row.shopId)
-        axios.get("http://localhost:9999/platform/"+{id}+"/users")
+        console.log(row)
+        this.shopId=row.shopId
+        getAdminList(this.shopId)
           .then(res => {
-          console.log(res)
+            console.log(res)
             if (res.data.code == 1) {
               this.adminDialog = true
-              // window.open(res.data.content, '_blank')
+              this.adminTableData = res.data.content
+              console.log(res)
             }
           })
           .catch(error => {
             this.$message.warning("您还没有设置该商户门店的管理员!");
             console.log(error);
           });
+      },
+      //进入控制台
+      handleClick(row){
+        jumpShopUrl(this.shopId).then(res=>{
+          console.log(res)
+          if(res.data.code==1){
+            window.open(res.data.content, '_blank')
+          }
+        })
       },
       handleSizeChange(val) {
         this.loading = true;
