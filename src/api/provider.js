@@ -15,3 +15,6 @@ export const addPlatformList = (data) => axios.post(`${baseUrl}/api/platform`,da
 export const addPlatformManagerUrl = (data) => axios.post(`${baseUrl}/platform/add-platform-manager`, {
   ...data
 });
+
+//修改服务商信息
+export const editPlatformUrl = (id,data) => axios.post(`${baseUrl}/api/platform/${id}`,data);

@@ -94,7 +94,8 @@
   import {
     getPlatformList,
     addPlatformList,
-    addPlatformManagerUrl
+    addPlatformManagerUrl,
+    editPlatformUrl
   } from "../../api/provider";
   import {
     sendCaptcha
@@ -296,13 +297,17 @@
         } else if (row.state == 0) {
           this.state = 1;
         }
-        this.$ajax({
-          method: "POST",
-          url: editPlatformUrl + row.platformId,
-          data: {
-            state: this.state
-          }
-        })
+        let data={
+          state: this.state
+        }
+        editPlatformUrl(row.platformId,data)
+        // this.$ajax({
+        //   method: "POST",
+        //   url: editPlatformUrl + row.platformId,
+        //   data: {
+        //     state: this.state
+        //   }
+        // })
           .then(res => {
             if (res.status === 200) {
               this.getPlatformsList();
