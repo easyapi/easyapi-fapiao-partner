@@ -148,7 +148,7 @@
         btnType: "",
         captchaTip: "获取验证码",
         titleTips: "提示",
-        shopId:'',
+        shopId: '',
         formInline: {
           keyword: '',
           shopId: "",
@@ -277,7 +277,7 @@
       // 跳转控制台
       jump2console(index, row) {
         console.log(row)
-        this.shopId=row.shopId
+        this.shopId = row.shopId
         getAdminList(this.shopId)
           .then(res => {
             console.log(res)
@@ -293,10 +293,10 @@
           });
       },
       //进入控制台
-      handleClick(row){
-        jumpShopUrl(this.shopId).then(res=>{
+      handleClick(row) {
+        jumpShopUrl(this.shopId).then(res => {
           console.log(res)
-          if(res.data.code==1){
+          if (res.data.code == 1) {
             window.open(res.data.content, '_blank')
           }
         })

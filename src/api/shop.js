@@ -54,5 +54,5 @@ export const getAdminList = (id) => axios.get(`${baseUrl}/shop/${id}/users`);
 /**
  * 跳转控制台
  */
-export const jumpShopUrl = (id) => axios.get(`${baseUrl}/api/authenticate/jump-shop/`+id);
+export const jumpShopUrl = (id) => axios.get(`${baseUrl}/api/authenticate/jump-shop/` + id);
 
