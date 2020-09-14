@@ -75,7 +75,10 @@
               </el-form-item>
               <el-form-item label="验证码：" prop="code">
                 <el-input type="text" v-model="formInline.code" style="width:50%;"></el-input>
-                <el-button @click="sendCaptcha" :disabled="btnDisabled">{{captchaTip}}</el-button>
+                <el-button @click="sendCaptcha" :disabled="btnDisabled">
+                  {{captchaTip}}
+                </el-button>
+                <span v-show="!show" style="margin-left: 5px;">{{count}}S</span>
               </el-form-item>
               <el-form-item label="用户昵称：" prop="nickname">
                 <el-input type="text" v-model="formInline.nickname"></el-input>
@@ -142,6 +145,9 @@
     props: {},
     data() {
       return {
+        show: true,
+        count: 60,
+        timer: null,
         adminDialog: false,
         adminTableData: [],
         centerDialogVisible: false,
@@ -260,13 +266,27 @@
       },
       // 发送验证码
       sendCaptcha() {
-        this.btnDisabled = true;
         let params = {
           mobile: this.formInline.username
         }
         sendCaptcha(params)
           .then(res => {
-            this.captchaTip = "获取成功";
+            console.log(res)
+            this.timer = setInterval(() => {
+              if (this.count > 0) {
+                this.btnDisabled = true;
+                this.captchaTip = "获取成功";
+                this.show = false
+                this.count--
+              } else {
+                this.btnDisabled = false;
+                this.captchaTip = "获取验证码";
+                this.show = true
+                clearInterval(this.timer)
+                this.timer = null
+                this.count = 60
+              }
+            }, 1000)
           })
           .catch(error => {
             this.btnDisabled = false;
@@ -285,7 +305,7 @@
               this.adminDialog = true
               this.adminTableData = res.data.content
               console.log(res)
-            }else{
+            } else {
               this.$message.warning("您还没有设置该商户门店的管理员!");
             }
           })
