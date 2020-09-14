@@ -55,3 +55,7 @@ export const getAdminList = (id) => axios.get(`${baseUrl}/shop/${id}/users`);
  */
 export const jumpShopUrl = (id) => axios.get(`${baseUrl}/api/authenticate/jump-shop/` + id);
 
+/**
+ * 删除管理员
+ */
+export const deleteAdmin = (id) => axios.delete(`${baseUrl}/api/account/delete-assign/${id}`);

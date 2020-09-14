@@ -115,6 +115,7 @@
               width="180">
               <template slot-scope="scope">
                 <el-button @click="handleClick(scope.row)" type="text" size="small">进入控制台</el-button>
+                <el-button @click="deleteAdmin(scope.row)" type="text" size="small">删除管理员</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -136,7 +137,7 @@
 </template>
 <script>
   import {
-    getShopList, createShop, createShopManger, sendCaptcha, getAdminList, jumpShopUrl
+    getShopList, createShop, createShopManger, sendCaptcha, getAdminList, jumpShopUrl, deleteAdmin
   } from "../../api/shop";
 
   export default {
@@ -321,6 +322,13 @@
           if (res.data.code == 1) {
             window.open(res.data.content, '_blank')
           }
+        })
+      },
+      //删除管理员
+      deleteAdmin(row) {
+        console.log(row)
+        deleteAdmin(row.userId).then(res => {
+          this.getAdminList()
         })
       },
       handleSizeChange(val) {
