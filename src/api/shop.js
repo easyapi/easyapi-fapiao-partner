@@ -31,7 +31,6 @@ export const getShopSummaryList = (params) => axios.get(`${baseUrl}/api/shop-sum
   }
 });
 
-
 /**
  * 创建商户信息
  */

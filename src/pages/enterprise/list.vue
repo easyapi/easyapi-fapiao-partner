@@ -285,6 +285,8 @@
               this.adminDialog = true
               this.adminTableData = res.data.content
               console.log(res)
+            }else{
+              this.$message.warning("您还没有设置该商户门店的管理员!");
             }
           })
           .catch(error => {
