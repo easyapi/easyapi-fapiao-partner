@@ -122,6 +122,7 @@
         </el-dialog>
         <div class="pagination text-align-right">
           <el-pagination
+            background
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :current-page="pagination.page"
