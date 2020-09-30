@@ -13,12 +13,12 @@
             <el-input
               size="small"
               v-model="formInline.keyword"
-              placeholder="可输入企业名称、税号等关键字"
+              placeholder="可输入服务商名称"
               style="width:360px;"
             ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button size="small" type="primary" @click="getProductList(formInline)">搜索</el-button>
+            <el-button size="small" type="primary" @click="getPlatformsList">搜索</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -108,6 +108,7 @@
     data() {
       return {
         formInline: {
+          keyword:"",
           platformId: "",
           identifyNumber: "",
           name: "",
@@ -180,7 +181,7 @@
       getPlatformsList() {
         this.pagination.page = this.pagination.page - 1
         let params = {...this.pagination}
-        params.keyword = this.formInline.keyword
+        params.name = this.formInline.keyword
         getPlatformList(params).then(res => {
           if (res.data.code === 0) {
             this.tableData = [];
@@ -191,6 +192,7 @@
           this.loading = false;
         }).catch(error => {
           console.log(error);
+          this.pagination.total = 0;
         });
       },
       // 弹出框
