@@ -36,6 +36,7 @@
           <el-table-column prop="platformId" label="序号" align="center"></el-table-column>
           <el-table-column prop="addTime" label="添加时间" align="center"></el-table-column>
           <el-table-column prop="name" label="服务商名称" align="center"></el-table-column>
+          <el-table-column prop="name" label="管理员" align="center"></el-table-column>
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
               <el-button size="mini" @click="showDiglog(1,scope.$index,scope.row)">设置管理员</el-button>
