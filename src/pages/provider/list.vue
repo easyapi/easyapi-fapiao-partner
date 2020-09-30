@@ -15,6 +15,7 @@
               v-model="formInline.keyword"
               placeholder="可输入服务商名称"
               style="width:360px;"
+              clearable
             ></el-input>
           </el-form-item>
           <el-form-item>

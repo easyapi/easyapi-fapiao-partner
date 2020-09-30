@@ -15,6 +15,7 @@
               v-model="formInline.keyword"
               placeholder="可输入企业名称、税号等关键字"
               style="width:360px;"
+              clearable
             ></el-input>
           </el-form-item>
           <el-form-item>
