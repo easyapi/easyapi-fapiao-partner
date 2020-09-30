@@ -146,11 +146,11 @@
       handleSizeChange(val) {
         this.loading = true;
         this.pageSize = val;
-        this.getProductList(this.formInline);
+        this.getShopSummaiesList(this.formInline);
       },
       handleCurrentChange(val) {
         this.current = val;
-        this.getProductList(this.formInline);
+        this.getShopSummaiesList(this.formInline);
       },
       getAgentList() {
         let obj = {};

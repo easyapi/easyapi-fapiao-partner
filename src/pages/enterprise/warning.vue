@@ -146,13 +146,13 @@
       handleSizeChange(val) {
         this.loading = true;
         this.pageSize = val;
-        this.getProductList(this.formInline);
+        this.getShopSummaiesList(this.formInline);
         console.log(`每页 ${val} 条`);
       },
       handleCurrentChange(val) {
         this.current = val;
 
-        this.getProductList(this.formInline);
+        this.getShopSummaiesList(this.formInline);
         console.log(`当前页: ${val}`);
       },
       getAgentList() {
