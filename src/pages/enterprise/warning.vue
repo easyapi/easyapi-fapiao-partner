@@ -19,7 +19,6 @@
           <el-table-column prop="shopSummaryId" label="序号" align="center"></el-table-column>
           <el-table-column prop="shop.name" label="企业名称" align="center"></el-table-column>
           <el-table-column prop="shop.identifyNumber" label="纳税人识别号" align="center"></el-table-column>
-          <el-table-column prop="shop.provider" label="税务服务商" align="center"></el-table-column>
           <el-table-column prop="addTime" label="注册时间" width="180" align="center"></el-table-column>
           <el-table-column prop="lastTime" label="最近开票日期" width="180" align="center"></el-table-column>
           <el-table-column prop="successCount" label="成功开票量" align="center"></el-table-column>
