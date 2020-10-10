@@ -98,12 +98,11 @@
           title="选择管理员"
           :modal-append-to-body="false"
           width="30%"
+          :modal="false"
           :visible.sync="adminDialog">
           <el-table
             :data="adminTableData"
             style="width: 100%"
-            :cell-style="cellStyle"
-            :header-cell-style="rowClass"
           >
             <el-table-column
               prop="nickname"
@@ -328,9 +327,23 @@
       },
       //删除管理员
       deleteAdmin(row) {
-        console.log(row)
-        deleteAdmin(row.userId).then(res => {
-          this.getAdminList()
+        this.$confirm('此操作将删除管理员, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          deleteAdmin(row.userId).then(res => {
+            this.getAdminList()
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            });
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
         })
       },
       handleSizeChange(val) {
