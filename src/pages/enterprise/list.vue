@@ -19,11 +19,11 @@
             ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button size="small" type="primary" @click="getShopsList">搜索</el-button>
+            <el-button size="small" type="primary" @click="getShopList">搜索</el-button>
           </el-form-item>
         </el-form>
       </div>
-      <div class>
+      <div>
         <el-table
           border
           v-loading="loading"
@@ -40,10 +40,11 @@
           <el-table-column prop="identifyNumber" label="纳税人识别号" align="center"></el-table-column>
           <el-table-column prop="provider" label="税务服务商" align="center"></el-table-column>
           <el-table-column prop="apiState" label="API状态" align="center" :formatter="formatState"></el-table-column>
-          <el-table-column label="操作" align="center" width="200">
+          <el-table-column prop="administrator" label="超级管理员" align="center"></el-table-column>
+          <el-table-column label="操作" align="center" width="260">
             <template slot-scope="scope">
-              <el-button size="mini" @click="showDiglog(1,scope.$index, scope.row)">设置管理员</el-button>
-              <el-button size="mini" @click="jump2console(scope.$index, scope.row)">控制台</el-button>
+              <el-button size="mini" @click="showDiglog(1,scope.$index, scope.row)">设置超级管理员</el-button>
+              <el-button size="mini" @click="jump2console(scope.$index, scope.row)">进入控制台</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -94,32 +95,6 @@
             <el-button type="primary" @click="submitForm('formInline')">保 存</el-button>
           </span>
         </el-dialog>
-        <el-dialog
-          title="选择管理员"
-          :modal-append-to-body="false"
-          width="30%"
-          :modal="false"
-          :visible.sync="adminDialog">
-          <el-table
-            :data="adminTableData"
-            style="width: 100%"
-          >
-            <el-table-column
-              prop="nickname"
-              label="管理员"
-              width="180">
-            </el-table-column>
-            <el-table-column
-              fixed="right"
-              label="操作"
-              width="180">
-              <template slot-scope="scope">
-                <el-button @click="handleClick(scope.row)" type="text" size="small">进入控制台</el-button>
-                <el-button @click="deleteAdmin(scope.row)" type="text" size="small">删除管理员</el-button>
-              </template>
-            </el-table-column>
-          </el-table>
-        </el-dialog>
         <div class="pagination text-align-right">
           <el-pagination
             background
@@ -138,7 +113,7 @@
 </template>
 <script>
   import {
-    getShopList, createShop, createShopManger, sendCaptcha, getAdminList, jumpShopUrl, deleteAdmin
+    getShopList, createShop, createUserShop, sendCaptcha, getAdminList, jumpShopUrl, deleteAdmin
   } from "../../api/shop";
 
   export default {
@@ -150,7 +125,6 @@
         show: true,
         count: 60,
         timer: null,
-        adminDialog: false,
         adminTableData: [],
         centerDialogVisible: false,
         btnType: "",
@@ -215,18 +189,10 @@
     },
     mounted() {
       document.title = "企业管理 - 服务中心 - EasyAPI发票管理"
-      this.getShopsList();
+      this.getShopList();
     },
-    //keep-alive 组件激活时调用
-    activated() {
-    },
-    //keep-alive 组件停用时调用。
-    deactivated() {
-    },
-    //方法
     methods: {
-      // 获取列表
-      getShopsList() {
+      getShopList() {
         this.loading = true;
         this.pagination.page = this.pagination.page - 1
         let params = {...this.pagination}
@@ -262,7 +228,7 @@
           this.show2 = false;
         } else {
           this.show2 = true;
-          this.titleTips = "设置管理员";
+          this.titleTips = "设置超级管理员";
           this.show1 = false;
         }
       },
@@ -270,90 +236,46 @@
       sendCaptcha() {
         let params = {
           mobile: this.formInline.username
-        }
-        sendCaptcha(params)
-          .then(res => {
-            console.log(res)
-            this.timer = setInterval(() => {
-              if (this.count > 0) {
-                this.btnDisabled = true;
-                this.captchaTip = "获取成功";
-                this.show = false
-                this.count--
-              } else {
-                this.btnDisabled = false;
-                this.captchaTip = "获取验证码";
-                this.show = true
-                clearInterval(this.timer)
-                this.timer = null
-                this.count = 60
-              }
-            }, 1000)
-          })
-          .catch(error => {
-            this.btnDisabled = false;
-            this.$message.warning("请输入手机号！");
-            console.log(error);
-          });
+        };
+        sendCaptcha(params).then(res => {
+          this.timer = setInterval(() => {
+            if (this.count > 0) {
+              this.btnDisabled = true;
+              this.captchaTip = "获取成功";
+              this.show = false
+              this.count--
+            } else {
+              this.btnDisabled = false;
+              this.captchaTip = "获取验证码";
+              this.show = true
+              clearInterval(this.timer)
+              this.timer = null
+              this.count = 60
+            }
+          }, 1000)
+        }).catch(error => {
+          this.btnDisabled = false;
+          this.$message.warning("请输入手机号！");
+          console.log(error);
+        });
       },
       // 跳转控制台
       jump2console(index, row) {
-        console.log(row)
         this.shopId = row.shopId
-        getAdminList(this.shopId)
-          .then(res => {
-            console.log(res)
-            if (res.data.code == 1) {
-              this.adminDialog = true
-              this.adminTableData = res.data.content
-              console.log(res)
-            } else {
-              this.$message.warning("您还没有设置该商户门店的管理员!");
-            }
-          })
-          .catch(error => {
-            this.$message.warning("您还没有设置该商户门店的管理员!");
-            console.log(error);
-          });
-      },
-      //进入控制台
-      handleClick(row) {
         jumpShopUrl(this.shopId).then(res => {
-          console.log(res)
           if (res.data.code == 1) {
             window.open(res.data.content, '_blank')
           }
         })
       },
-      //删除管理员
-      deleteAdmin(row) {
-        this.$confirm('此操作将删除管理员, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          deleteAdmin(row.userId).then(res => {
-            this.getAdminList()
-            this.$message({
-              type: 'success',
-              message: '删除成功!'
-            });
-          })
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          });
-        })
-      },
       handleSizeChange(val) {
         this.loading = true;
         this.pagination.size = val;
-        this.getShopsList();
+        this.getShopList();
       },
       handleCurrentChange(val) {
         this.pagination.page = val;
-        this.getShopsList();
+        this.getShopList();
       },
       submitForm(formName) {
         this.$refs[formName].validate(valid => {
@@ -365,7 +287,7 @@
               data.code = this.formInline.code
               data.nickname = this.formInline.nickname
               data.password = this.formInline.password
-              createShopManger(data).then(res => {
+              createUserShop(data).then(res => {
                 if (res.status === 200) {
                   this.centerDialogVisible = false;
                   this.$message.success("设置成功！");
@@ -384,7 +306,7 @@
                 if (res.status === 200) {
                   this.centerDialogVisible = false;
                   this.$message.success("添加成功！");
-                  this.getShopsList();
+                  this.getShopList();
                 } else if (res.data.code === 0) {
                   this.$message.error("添加失败！");
                 }
@@ -430,7 +352,6 @@
         });
       },
       handleEdit(index, row) {
-        console.log(index, row.productId);
         this.$router.push({
           path: "/store/product-add",
           query: {
@@ -439,7 +360,6 @@
         });
       },
       handleSelectionChange(val) {
-        console.log(val);
         let productId = [];
         if (val.length != 0) {
           for (let key in val) {
@@ -449,7 +369,6 @@
         } else {
           this.multipleSelection = "";
         }
-
         console.log(this.multipleSelection);
       }
     }

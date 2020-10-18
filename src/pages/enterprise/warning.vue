@@ -117,7 +117,7 @@
     },
     mounted() {
       document.title = "预警企业 - 服务中心 - EasyAPI发票管理";
-      this.getShopSummaiesList();
+      this.getShopSummaryList();
     },
     //keep-alive 组件激活时调用
     activated() {
@@ -128,7 +128,7 @@
     //方法
     methods: {
       // 获取列表
-      getShopSummaiesList() {
+      getShopSummaryList() {
         this.pagination.page = this.pagination.page - 1
         let params = {...this.pagination}
         params.keyword = this.formInline.keyword
@@ -147,14 +147,11 @@
       handleSizeChange(val) {
         this.loading = true;
         this.pageSize = val;
-        this.getShopSummaiesList(this.formInline);
-        console.log(`每页 ${val} 条`);
+        this.getShopSummaryList(this.formInline);
       },
       handleCurrentChange(val) {
         this.current = val;
-
-        this.getShopSummaiesList(this.formInline);
-        console.log(`当前页: ${val}`);
+        this.getShopSummaryList(this.formInline);
       },
       getAgentList() {
         let obj = {};
@@ -171,8 +168,7 @@
           method: "GET",
           url: agentsUrl,
           params: obj
-        })
-          .then(res => {
+        }).then(res => {
             if (res.status === 200) {
               this.tableData = res.data.content;
               this.total = Number(res.data.totalElements);

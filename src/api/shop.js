@@ -4,7 +4,7 @@ import axios from 'axios'
 /**
  * 获取商户门店列表
  */
-export const getShopList = (params) => axios.get(`${baseUrl}/api/shops`, {
+export const getShopList = (params) => axios.get(`${baseUrl}/platform/shops`, {
   params: {
     ...params
   }
@@ -17,10 +17,7 @@ export const sendCaptcha = (params) => axios.get(`${baseUrl}/captcha/send`, {
   }
 });
 
-// export const getAdminList = (id) => axios.get(`${baseUrl}/api/authenticate/jump-shop/${id}`
-// );
-
-export const getAdmin = (id) => axios.get(`${baseUrl}/api/authenticate/jump-shop/${id}`
+export const getAdmin = (id) => axios.get(`${baseUrl}/platform/shop/${id}/jump`
 );
 
 // 平台员工:获取商户门店开票累计列表
@@ -41,7 +38,7 @@ export const createShop = (data) => axios.post(`${baseUrl}/api/shop`, {
 /**
  * 创建商户管理员
  */
-export const createShopManger = (data) => axios.post(`${baseUrl}/platform/add-shop-manager`, {
+export const createUserShop = (data) => axios.post(`${baseUrl}/platform/user-shop`, {
   ...data
 });
 
@@ -53,7 +50,7 @@ export const getAdminList = (id) => axios.get(`${baseUrl}/shop/${id}/users`);
 /**
  * 跳转控制台
  */
-export const jumpShopUrl = (id) => axios.get(`${baseUrl}/api/authenticate/jump-shop/` + id);
+export const jumpShopUrl = (id) => axios.get(`${baseUrl}/platform/shop/${id}/jump`);
 
 /**
  * 删除管理员

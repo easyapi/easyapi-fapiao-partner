@@ -41,7 +41,6 @@
   </div>
 </template>
 <script>
-  import {sxproductUrl, getShopSummaiesUrl} from "../../api/api";
   import {
     getShopSummaryList
   } from "../../api/shop";
@@ -179,13 +178,11 @@
             }
           })
           .catch(error => {
-            console.log(error.response);
             this.tableData = [];
             this.total = 0;
           });
       },
       handleEdit(index, row) {
-        console.log(index, row.productId);
         this.$router.push({
           path: "/store/product-add",
           query: {
