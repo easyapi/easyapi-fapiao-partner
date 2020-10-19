@@ -265,8 +265,13 @@
         jumpShopUrl(this.shopId).then(res => {
           if (res.data.code == 1) {
             window.open(res.data.content, '_blank')
+          }else {
+            this.$message.warning("您还没有设置该商户门店的管理员!");
           }
-        })
+        }).catch(error => {
+          this.$message.warning("您还没有设置该商户门店的管理员!");
+          console.log(error);
+        });
       },
       handleSizeChange(val) {
         this.loading = true;
