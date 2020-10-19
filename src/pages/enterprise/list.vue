@@ -157,7 +157,7 @@
         rules: {
           name: [
             {required: true, message: "请输入企业名称", trigger: "blur"},
-            {min: 3, max: 15, message: "长度在 3 到 15 个字符", trigger: "blur"}
+            {min: 3, max: 50, message: "长度在 3 到 50 个字符", trigger: "blur"}
           ],
           identifyNumber: [
             {required: true, message: "请输入纳税人识别号", trigger: "blur"},
