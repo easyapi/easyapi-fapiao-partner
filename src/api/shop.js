@@ -1,4 +1,4 @@
-import {baseUrl} from "./api";
+import {baseUrl} from "./request";
 import axios from 'axios'
 
 /**

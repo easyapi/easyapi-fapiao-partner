@@ -41,7 +41,6 @@
   </div>
 </template>
 <script>
-  import {sxproductUrl, getShopSummaiesUrl} from "../../api/api";
   import {
     getShopSummaryList,
   } from "../../api/shop";

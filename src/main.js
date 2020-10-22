@@ -2,11 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router/index'
 import store from './store/index'
-import Cookies from 'js-cookie'
 import 'babel-polyfill'
-import axios from './api/fetch'
 
-Vue.prototype.$ajax = axios
 Vue.config.productionTip = false
 
 //iconfont

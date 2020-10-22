@@ -1,4 +1,4 @@
-import {baseUrl} from "./api";
+import {baseUrl} from "./request";
 import axios from 'axios'
 
 /**
@@ -19,6 +19,3 @@ export const login = (username, password, rememberMe) => axios.post(`${baseUrl}/
  */
 export const getUser = () => axios.get(`${baseUrl}/api/account`)
 
-
-//获取 平台管理员跳转到 商户门店控制台需要的brearTokenncu
-export const jumpShopUrl = `${baseUrl}/api/authenticate/jump-shop/`;

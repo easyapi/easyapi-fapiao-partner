@@ -1,4 +1,4 @@
-import {baseUrl} from "./api";
+import {baseUrl} from "./request";
 import axios from 'axios'
 
 //获取平台列表(查询当前用户所属平台的子平台列表)

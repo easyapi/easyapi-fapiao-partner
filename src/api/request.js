@@ -1,6 +1,11 @@
 import axios from 'axios'
 import router from '../router/index'
 
+export const baseUrl = "https://fapiao-api.easyapi.com"; //发票API接口根地址
+
+// export const baseUrl = "http://localhost:8888"; //发票API接口根地址
+
+
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
   //全局加token
