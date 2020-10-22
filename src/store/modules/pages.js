@@ -18,7 +18,7 @@ let list = [
         sons: [
           {
             title: "企业管理",
-            url: '/invoice/enterprise-list',
+            url: '/invoice/shop-list',
             name: 'EnterpriseList',
             icon: "",
           },
@@ -65,7 +65,7 @@ if (userInfoData && userInfoData.platform) {
             sons: [
               {
                 title: "企业管理",
-                url: '/invoice/enterprise-list',
+                url: '/invoice/shop-list',
                 name: 'EnterpriseList',
                 icon: "",
               },
@@ -109,7 +109,7 @@ if (userInfoData && userInfoData.platform) {
             sons: [
               {
                 title: "企业管理",
-                url: '/invoice/enterprise-list',
+                url: '/invoice/shop-list',
                 name: 'EnterpriseList',
                 icon: "",
               },
@@ -138,7 +138,7 @@ let extend = [
   //商城
   {
     name: 'EnterpriseList',
-    list: ['/invoice/enterprise-list']
+    list: ['/invoice/shop-list']
   },
   {
     name: 'Warning',

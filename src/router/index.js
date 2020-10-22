@@ -21,22 +21,22 @@ export default new Router({
       path: '/invoice',
       name: 'Invoice',
       component: () => import(/* webpackChunkName: "store" */ '../pages/layout/layout.vue'),
-      redirect: '/invoice/enterprise-list',
+      redirect: '/invoice/shop-list',
       children: [
         {
-          path: 'enterprise-list',
-          name: 'Enterprise',
-          component: () => import(/* webpackChunkName: "store" */ '../pages/enterprise/list.vue')
+          path: 'shop-list',
+          name: 'ShopList',
+          component: () => import(/* webpackChunkName: "store" */ '../pages/shop/list.vue')
         },
         {
           path: 'silent',
-          name: 'Silent',
-          component: () => import(/* webpackChunkName: "store" */ '../pages/enterprise/silent.vue')
+          name: 'ShopSilent',
+          component: () => import(/* webpackChunkName: "store" */ '../pages/shop/silent.vue')
         },
         {
           path: 'warning',
-          name: 'Warning',
-          component: () => import(/* webpackChunkName: "store" */ '../pages/enterprise/warning.vue')
+          name: 'ShopWarning',
+          component: () => import(/* webpackChunkName: "store" */ '../pages/shop/warning.vue')
         },
         {
           path: 'provider-list',

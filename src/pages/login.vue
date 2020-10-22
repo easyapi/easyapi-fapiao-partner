@@ -99,7 +99,7 @@
                     this.$message.success("登录成功");
                     this.$store.dispatch("getUserInfo");
                     setTimeout(() => {
-                      this.$router.push("/invoice/enterprise-list");
+                      this.$router.push("/invoice/shop-list");
                     }, 1000);
                   } else {
                     this.$message.error("你不属于该平台");
